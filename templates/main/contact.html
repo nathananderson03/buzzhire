@@ -1,0 +1,21 @@
+{% extends 'page_fullwidth.html' %}
+{% load main_tags %}
+
+{% block content %}
+            <div class="row text-center contact-address contact-about">
+                <div class='col-md-4 col-md-offset-2'>
+                    <h4>Booking enquiries</h4>
+                    <p><i class="fa fa-envelope"></i><a href='mailto:{{ bookings_email }}'>{{ bookings_email }}</a></p>
+                    <h4>General enquiries</h4>
+                    <p><i class="fa fa-envelope"></i><a href='mailto:{{ contact_email }}'>{{ contact_email }}</a></p>
+                </div>
+
+                <div class='col-md-4'>
+                    <p><i class="fa fa-facebook"></i> <a href='http://{{ facebook_url }}'>{{ facebook_url }}</a></p>
+                    <p><i class="fa fa-twitter"></i><a href='http://{{ twitter_url }}'>{{ twitter_url }}</a></p>
+                    <p><i class="fa fa-phone"></i> {% contact_phone %}<br><small>(available from 9am - 7pm Monday to Friday, and from 12pm - 7pm Saturday and Sunday)</small></p>
+                </div>
+
+            </div>
+
+{% endblock %}

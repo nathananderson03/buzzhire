@@ -1,0 +1,39 @@
+{% load icons %}
+{% if object_list %}
+    <div class='table-responsive'>
+        <table class='table vehicles-table'>
+            <thead>
+                <th>Type</th>
+                <th class="text-center">{% if admin_view %}Has own vehicle{% else %}Can you provide the vehicle?{% endif %}</th>
+                <th>Delivery box size</th>
+                {% if not admin_view %}<th></th>{% endif %}
+            </thead>
+            <tbody>
+                {% for object in object_list %}
+                   <tr>
+                       <td class="blue">{{ object }}</td>
+                       <td class="gray-light text-center ">
+                        {% if object.own_vehicle %}
+                        {{ 'vehicle-yes'|icon}}
+                        {% else %}
+                        {{ 'vehicle-no'|icon}}
+                        {% endif %}
+                       </td>
+                       <td class="blue">{{ object.get_delivery_box_display }}</td>
+                       {% if not admin_view %}
+                           {# Hide these links as we haven't given permission to admins to edit them yet #}
+                           <td class='text-right'>
+                             <a href='{% url 'drivervehicletype_change' object.pk %}' class="gray-light def-a pad10">{{ 'edit-lg'|icon }}</a>
+                             <a href='{% url 'drivervehicletype_delete' object.pk %}' class="gray-light def-a pad10">{{ 'delete-lg'|icon }}</a>
+                           </td>
+                       {% endif %}
+                   </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class='well'>
+        <p>No vehicles.</p>
+    </div>
+{% endif %}

@@ -1,0 +1,31 @@
+{% extends 'job/jobrequest_detail.html' %}
+{% load humanize icons %}
+
+{% block extra_job_requirements %}
+     <tr>
+        <th>Vehicle type</th>
+        <td>
+            <p class='compact'><span class='label label-default'>{{ object.get_vehicle_type_display }}</span></p>
+        </td>
+    </tr>
+     <tr>
+        <th>Must the driver supply their own vehicle?</th>
+        <td>
+            {{ object.own_vehicle|yesno|icon }}
+        </td>
+    </tr>
+     {% if object.delivery_box_applicable %}
+         <tr>
+            <th>Minimum delivery box</th>
+            <td>
+                {{ object.get_minimum_delivery_box_display }}
+            </td>
+        </tr>
+     {% endif %}
+     <tr>
+        <th>Phone requirement</th>
+        <td>
+            {{ object.get_phone_requirement_display }}
+        </td>
+    </tr>
+{% endblock %}

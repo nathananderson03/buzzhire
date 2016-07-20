@@ -1,0 +1,177 @@
+{% extends 'page_fullwidth.html' %}
+{% load icons booking freelancer feedback humanize %}
+
+{% block page_actions %}
+    {% if request.user.is_admin %}
+        <a class='btn btn-default' href='{% url 'admin:driver_driver_change' object.pk %}'> Edit</a>
+    {% endif %}
+{% endblock %}
+
+<!-- {{ object.service|capfirst }} -->
+
+{% block breadcrumbs_wrapper %}{% endblock %}
+ {% block page_title %}{% endblock %}
+
+{% block content %}
+
+<div class="top-content freelancer-profile {{ object.service }}">
+    <div class="container">
+        <div class=' bottom-space profile-photo-page'>
+            {% profile_photo object 'medium' %}
+        </div>
+        <h4 class="HelveticaLight white f35 mar0">{{ object.get_full_name }}</h4>
+        <div class="freelancer-details">
+            <span class="detail-desc"> Service </span>
+            <span class="detail-data"> {{ object.service|capfirst }} </span>
+        </div>
+        <div class="freelancer-details">
+            <span class="detail-desc"> Phone number </span>
+            <span class="detail-data"> {{ object.mobile }} </span>
+        </div>
+        <div class="freelancer-details">
+            <span class="detail-desc"> Experience </span>
+            <span class="detail-data"> {{ object.get_years_experience_display }} </span>
+        </div>
+        <div class="freelancer-details">
+            <span class="detail-desc"> Rating </span>
+            <span class="detail-data"> {% average_score object.average_score %} </span>
+        </div>
+        
+    </div>
+</div>
+     <div class='row mar0 padb40 feedback-all-wrap' >
+        <div class="container">
+            {% feedback_for_freelancer_all object %}
+        </div>
+
+        {% if request.user.is_admin %}
+        <div class='container'>
+            
+            
+                <div class='bottom-space col-md-4'>
+                    {% profile_photo object 'large' %}
+                </div>
+                <div class='bottom-space col-md-8'>
+                <h5>Contact</h5>
+                <table class='table table-striped'>
+                    <tr>
+                        <th>Name</th>
+                        <td>{{ object.get_full_name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Mobile</th>
+                        <td>{{ object.mobile }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ object.user.email }}</td>
+                    </tr>
+                    
+                </table>
+                <h5>Location</h5>
+                <table class='table table-striped'>
+                    <tr>
+                        <th>Postcode</th>
+                        <td>
+                            {{ object.postcode }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Travel distance</th>
+                        <td>
+                            {{ object.get_travel_distance_display }}
+                        </td>
+                    </tr>
+                 </table>
+             </div>
+             <div class="clearfix"></div>
+                <h5>Other details</h5>
+                <table class='table table-striped'>
+                    <tr>
+                        <th>Reference</th>
+                        <td>
+                            <span style='font-family: monospace;'>{{ object.reference_number }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Published</th>
+                        <td>
+                            {{ object.published|yesno|icon }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Minimum pay per hour</th>
+                        <td>
+                            &pound;{{ object.minimum_pay_per_hour.amount }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>English fluency</th>
+                        <td>
+                            {{ object.get_english_fluency_display }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Eligible to work in UK</th>
+                        <td>
+                            {{ object.eligible_to_work|yesno|icon }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Years of experience</th>
+                        <td>
+                            {{ object.get_years_experience_display }}
+                        </td>
+                    </tr>
+                    {% block additional_admin_fields %}{% endblock %}
+                </table>
+            </div>
+             <div class='container'>
+                {% block additional_sections %}{% endblock %} 
+                
+                    <h5>Availability</h5>
+                    {% include 'booking/includes/availability_summary.html' with form=object|availability_form_for_freelancer %}
+               
+                
+            </div>
+            {% else %}
+                <!--<h5>Details</h5>
+                   <table class='table table-striped'>
+                    <tr>
+                        <th>Mobile</th>
+                        <td>{{ object.mobile }}</td>
+                    </tr>
+                    <tr>
+                        <th>Rating</th>
+                        <td>
+                            {% average_score object.average_score %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>English fluency</th>
+                        <td>
+                            {{ object.get_english_fluency_display }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Eligible to work in UK</th>
+                        <td>
+                            {{ object.eligible_to_work|yesno|icon }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Years of experience</th>
+                        <td>
+                            {{ object.get_years_experience_display }}
+                        </td>
+                    </tr>
+                    {% block additional_public_fields %}{% endblock %}
+                </table> -->
+            
+            
+        
+        
+       
+        {% endif %}
+     </div>    
+{% endblock %}

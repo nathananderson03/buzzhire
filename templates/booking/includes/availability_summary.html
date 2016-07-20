@@ -1,0 +1,30 @@
+{% load icons %}
+{# This uses a form class as it's convenient, but it's not actually a form #}
+{% if form %}
+    {% with form.get_field_table as field_table %}
+        <div class="table-responsive">
+            <table class='table table-striped'>
+                <thead>
+                    <tr>
+                        <th></th>
+                        {% for heading in field_table.headings %}
+                            <th>{{ heading }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in field_table.rows %}
+                        <tr>
+                            <th>{{ row.heading }}</th>
+                            {% for field in row.fields %}
+                                <td style='color: {{ field.value|yesno:'#5cb85c, #d9534f'}};'>{{ field.value|yesno|icon }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endwith %}
+{% else %}
+    <p class='well'>Unknown.</p>
+{% endif %}

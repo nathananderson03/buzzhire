@@ -1,0 +1,7 @@
+{% extends 'account/dashboard_base.html' %}
+{% load icons %}
+
+{% block content %}
+    <p><a href='{% url 'drivervehicletype_add' %}' class='btn btn-primary f18 mart10'> + New Vehicle</a></p>
+    {% include 'driver/includes/vehicle_list.html' %}
+{% endblock %}  

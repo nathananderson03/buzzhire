@@ -1,0 +1,33 @@
+{% load freelancer feedback core_tags %}
+<p></p>
+{% for object in object_list %}
+    {% url 'freelancer_detail' object.freelancer.pk as freelancer_url %}
+    <table class="row">
+      <tr>
+        <td class="wrapper">
+          <table class="three columns">
+            <tr>
+              <td>
+                <a href='{% base_url %}{{ freelancer_url }}'>
+                    {% profile_photo object.freelancer 'small' for_email=True %}
+                </a>
+              </td>
+              <td class="expander"></td>
+            </tr>
+          </table>
+    
+        </td>
+        <td class="wrapper last">
+    
+          <table class="nine columns">
+            <tr>
+              <td>
+                {% summary_for_email object.freelancer 'client' %}
+              </td>
+              <td class="expander"></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+{% endfor %}

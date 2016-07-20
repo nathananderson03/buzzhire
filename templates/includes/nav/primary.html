@@ -1,0 +1,77 @@
+{% load thumbnail icons static staticthumbnail main_tags freelancer booking %}
+
+<div class="navbar navbar-default navbar-fixed-top menu-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <div style="height: 50px; width: 168px;">
+                <a href="/"><img alt="BuzzHire" src="{% static 'img/logo/logo.svg' %}" style="max-height: 100%; max-width: 100%;"></a>
+            </div>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                {% if request.user.is_anonymous %}
+                    {% url 'service_select' as link_url %}
+                    {% include 'includes/menu_link.html' with link_text='Book a freelancer' %}
+                    {% url 'freelancer_signup_select' as link_url %}
+                    {% include 'includes/menu_link.html' with link_text='Become a freelancer' %}
+                   
+                    <li><a href="{% url 'account_login' %}" class="btn blue-bck white">Log in</a></li>
+                {% else %}
+                    <!--{% comment %}
+                        {% url 'account_dashboard' as link_url %}
+                        {% include 'includes/menu_link.html' with icon_name='dashboard' link_text='Dashboard' %}
+                    {% endcomment %}-->
+                    {% if request.user.is_freelancer %}
+                        {% url 'account_dashboard' as link_url %}
+                        {% include 'includes/menu_link.html' with icon_name='' link_text='Dashboard' %}
+                        {% url 'freelancer_bookings_list' as link_url %}
+                        {% include 'includes/menu_link.html' with icon_name='' link_text='My bookings' %}
+                        
+                    {% else %}
+
+                        {% if request.user.is_client %}
+
+                            {% url 'service_select' as link_url %}
+                            {% include 'includes/menu_link.html' with link_text='Book a freelancer' %}
+                            {% url 'requested_jobs' as link_url %}
+                            {% include 'includes/menu_link.html' with icon_name='' link_text='My bookings' %}
+
+                        {% endif %}    
+
+                    {% endif %}
+
+                    
+                    {% url 'notification_list' as link_url %}
+                    {% include 'includes/menu_link.html' with icon_name='icon-notification' link_text='' %}
+
+                    <p class="navbar-text {% if request.user.is_freelancer %}photo-navbar-item {%endif %} blue">
+                        {% if request.user.is_freelancer %}
+                        
+                            {% profile_photo request.user.freelancer 'small' %}
+
+                            {{ request.user }}
+                        {% else %}
+                            {% if request.user.is_client %}
+                                {{ request.user.client }}
+                            {% else %}
+                                {{ request.user }}
+                            {% endif %}
+                        
+                        {% endif %}
+                        <!--Logged in as {{ request.user }}-->
+                        
+                    </p>
+                    <p class="navbar-text logout-navbar-item"><a href="{% url 'account_logout' %}">{{ 'logout'|icon }} Log out</a></p>
+                 {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>

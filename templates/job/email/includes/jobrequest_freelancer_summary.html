@@ -1,0 +1,9 @@
+{% extends base_template %}
+
+{% block budget_details %}
+    <p><strong>Pay per hour:</strong> &pound;{{ object.freelancer_pay_per_hour.amount }} </p>
+{% endblock %}
+
+{% block extra_time_details %}
+    <p><strong>Arrival time:</strong> {{ object.arrival_time }}</p>
+{% endblock %}

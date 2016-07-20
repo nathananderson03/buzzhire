@@ -1,0 +1,8 @@
+{% extends 'freelancer/includes/freelancer_summary.html' %}
+
+{% block extra_rows_top %}
+    <tr> 
+        <th>Role</th>
+        <td><span class='label label-default'>{{ object.get_role_display }}</span></td>
+    </tr>
+{% endblock %}

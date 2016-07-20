@@ -1,0 +1,14 @@
+{% extends 'account/dashboard_base.html' %}
+{% load django_bootstrap_breadcrumbs  %}
+
+{% block inner_breadcrumb %}
+  {{ block.super }}
+  {% breadcrumb 'Pending job requests' 'freelancer_invitations_list' %}
+{% endblock %}
+
+{% block content %}
+    <div class='well text-center'>
+        <h4>Too late!</h4>
+        <p>We're afraid this job is now fully booked.</p>
+    </div>
+{% endblock %}

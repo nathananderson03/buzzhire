@@ -1,0 +1,13 @@
+{% extends 'freelancer/freelancer_detail.html' %}
+
+{% block additional_sections %}
+    <table class='table'>
+        <tr>
+            <th>Role</th>
+            <td>
+                <span class='label label-default'>{{ object.get_role_display }}</span>
+            </td>
+        </tr>
+    </table>
+    
+{% endblock %}

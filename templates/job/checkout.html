@@ -1,0 +1,38 @@
+{% extends 'job/job_create_base.html' %}
+{% load icons django_bootstrap_breadcrumbs crispy_forms_tags payment core_tags %}
+
+{% block page_actions %}{% endblock %}
+
+{% block content %}
+<p class="f18"> Please provide your card details in order for us to verify your account. The details are needed for <b>authorisation purposes only</b>. We will not take payment from your account until the freelancer has completed their job booking as requested. </p>
+    <div class='col-md-6'>
+
+        {% crispy form %}
+    </div>
+        
+{% endblock %}
+
+{% block sidebar %}
+<div class="checkout-sidebar-wrap">
+{{ block.super }}
+</div>
+{% endblock %}
+
+{% block extrascripts %}
+    {{ block.super }}
+    <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+    <script>
+      {% comment %}
+        This inserts the Braintree Drop-In UI into the form.
+        The form then communicates with Braintree and provides a payment nonce,
+        which is then posted via the form for Django to process as a payment.
+      {% endcomment %}
+      braintree.setup("{% payment_client_token client %}", 'dropin', {
+          container: 'payment-method-container',
+          onReady: function () {
+            // Show the submit button once the form has loaded
+            $('#pay-button').show();
+          },
+        });
+    </script>
+{% endblock %}

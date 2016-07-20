@@ -1,0 +1,9 @@
+{% load core_tags %}
+<p>Dear {{ object.client.first_name }},</p>
+
+<p>The following job has now been cancelled:</p>
+
+{% summary_for_email object 'client' %}  
+
+<p>If you did not intend to cancel your booking please contact us
+at {{ bookings_email }} to request a new booking.</p>

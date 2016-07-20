@@ -1,0 +1,24 @@
+{% load core_tags %}
+{% if page_obj.has_other_pages %}
+    {% with request|get_non_page_options as non_page_options %}
+        <ul class='pagination'>
+            {% if page_obj.has_previous %}
+              <li class="arrow previous">
+                <a href="?{% if non_page_options %}{{ non_page_options }}&amp;{% endif %}{% if page_obj.has_previous %}page={{ page_obj.previous_page_number }}{% endif %}">&#60;</a>
+              </li>
+            {% endif %}
+            {% block page_range %}
+                {% for page_index in paginator.page_range %}
+                    <li{% if page_obj.number == page_index %} class="active"{% endif %}>
+                        <a href="?{% if non_page_options %}{{ non_page_options }}&amp;{% endif %}page={{ page_index }}" >
+                            {{ page_index }}
+                        </a>
+                    </li>
+                {% endfor %}
+            {% endblock %}
+            {% if page_obj.has_next %}
+              <li class="arrow next"><a href="?{% if non_page_options %}{{ non_page_options }}&amp;{% endif %}page={{ page_obj.next_page_number }}">&#62;</a></li>
+            {% endif %}
+        </ul>
+    {% endwith %}
+{% endif %}

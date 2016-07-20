@@ -1,0 +1,10 @@
+{% load icons %}
+<div class='text-center'>
+    {% if cancel_url %}
+        <a class='btn btn-default' href='{{ cancel_url }}'>{{ cancel_text|default:'Cancel' }}</a>&nbsp;
+    {% endif %}
+    <button name='{{ submit_name }}' value='{{ submit_value|default:'submit' }}' class='btn {% if button_classes %}{{ button_classes }}{% else %}btn-lg btn-primary{% endif %}'>
+       <!-- {% if icon_name %}{{ icon_name|icon }}{% endif %} -->
+        {{ submit_text }}
+    </button>
+</div>

@@ -1,0 +1,106 @@
+{% extends 'account/dashboard_base.html' %}
+{% load crispy_forms_tags icons booking freelancer feedback %}
+
+{% block content %}
+    {% if form.job_request %}
+        <p class='text-center'>
+            Job matching for <a href='{{ form.job_request.get_absolute_url }}'><span style='font-family: monospace;'>{{ form.job_request }}</span></a>
+        </p>
+    {% endif %}
+
+    <div class='well'>
+        <form method='get'>
+            {% csrf_token %}
+            <div class='row'>
+                <div class='col-md-4'>
+                    {% block column_one_fields %}
+                        {{ form.date|as_crispy_field }}
+                        {{ form.shift|as_crispy_field }}
+                        {{ form.raw_postcode|as_crispy_field }}
+                        {# form.respect_travel_distance|as_crispy_field #}
+                    {% endblock %}
+                </div>
+                <div class='col-md-4'>
+                    {% block column_two_fields %}
+                        {{ form.client_pay_per_hour|as_crispy_field }}
+                        {{ form.years_experience|as_crispy_field }}
+                        {% if form.freelancer_pay_per_hour %}<p class='help-block'>Calculated freelancer rate: <strong>&pound;{{ form.freelancer_pay_per_hour.amount }}</strong>.</p>{% endif %}
+                    {% endblock %}
+                </div>
+                <div class='col-md-4'>
+                    {% block column_three_fields %}{% endblock %}
+                </div>
+            </div>
+            {% include 'includes/forms/buttons.html' with submit_name='search' icon_name='job_matching' submit_text='Search freelancers' cancel_url=request.path cancel_text='Reset' %} 
+        </form>
+    </div>
+    {% if searched %}
+        {% if object_list %}
+            {% include 'includes/paginator_results_count.html' with results_description='freelancers' %}
+            <table class='table table-striped'>
+                <thead>
+                    <th></th>
+                    <th></th>
+                    <th>Location</th>
+                    <th>Maximum travel distance</th>
+                    <th>Minimum pay per hour</th>
+                    {% block additional_headings %}{% endblock %}
+                    {% if form.job_request %}<th></th>{% endif %}
+                </thead>
+                <tbody>
+                    {% for object in object_list %}
+                        {% with object.get_absolute_url as object_url %}
+                            <tr>
+                                <td><a href='{{ object_url }}'>{% profile_photo object 'medium' %}</a>{{ object.get_years_experience_display }}</td>
+                                <td class='min-width-row'>
+                                    <a href='{{ object_url }}'>{{ object.get_full_name }}</a><br>
+                                    {% average_score object.average_score %}
+                                </td>
+                                <td>{% if object.postcode %}
+                                        {{ object.postcode }}
+                                        {% if form.include_distances %}
+                                            {% with object.distance.mi|floatformat:'0' as distance %} 
+                                                <br>({{ distance }} mile{{ distance|pluralize }} away)
+                                            {% endwith %}
+                                        {% endif %}
+                                    {% else %}unknown{% endif %}
+                                </td>
+                                <td>{% if object.postcode %}{{ object.travel_distance }} mile{{ object.travel_distance|pluralize }}{% endif %}</td>
+                                <td>&pound;{{ object.minimum_pay_per_hour.amount }}</td>
+                                {% block additional_cells %}{% endblock %}
+                                {% if form.job_request %}
+                                    <td class='text-center'>
+                                        {% if form.job_request|booking_exists_for_freelancer:object %}
+                                            <p class='compact'><span class='label label-success'>{{ 'confirm'|icon }} Booked</span></p>
+                                        {% else %}
+                                            {% if form.job_request|invitation_exists_for_freelancer:object %}
+                                                <p class='compact'><span class='label label-info'>{{ 'invitation'|icon }} Invited</span></p>
+                                            {% else %}
+                                                <a class='btn btn-sm btn-block btn-primary' href='{% url 'invitation_create' form.job_request.pk object.pk %}'>{{ 'invitation'|icon }} Invite</a>
+                                            {% endif %}
+                                            <a class='btn btn-sm btn-block btn-default' href='{% url 'booking_create' form.job_request.pk object.pk %}'>{{ 'create'|icon }} Create booking</a>
+                                        {% endif %}
+                                    </td>
+                                {% endif %} 
+                            </tr>
+                        {% endwith %}
+                    {% endfor %}
+                </tbody>
+           </table>
+           {% include 'includes/paginator.html' %}
+        {% else %}
+            <p>No results.</p>
+        {% endif %}
+    {% else %}
+        <div class='alert alert-info'>
+            Use the filters to search for a freelancers.
+        </div>
+    {% endif %}
+    
+{% endblock %}
+
+
+{% block extrascripts %}
+    {{ block.super }}
+    {% include 'includes/forms/datetime_form_js.html' %}
+{% endblock %}

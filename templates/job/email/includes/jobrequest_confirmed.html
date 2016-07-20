@@ -1,0 +1,14 @@
+{% load freelancer feedback core_tags %}
+<p>Dear {{ object.client.first_name }},</p>
+
+{% with object.bookings.published as bookings %} 
+
+    <p>Your freelancer{{ bookings|pluralize:' has,s have' }} now been booked for the job below.</p>
+    
+    {% summary_for_email object 'client' %}
+    
+    <p></p>
+    <h4>Your freelancer{{ bookings|pluralize }}</h4>
+    {% include 'booking/email/includes/bookings_or_invitations_for_job_request.html' with object_list=bookings %}
+
+{% endwith %}

@@ -1,0 +1,36 @@
+{% load icons feedback booking %}
+{% if request.user.is_freelancer %}
+    <div class="panel panel-default">
+      <!--<div class="panel-heading mobile-menu-toggler" role="tab" id="heading1">
+         <a href="#collapse1" aria-expanded="false" aria-controls="collapse1" data-toggle="collapse" data-parent="#accordion">
+          Bookings
+        </a>
+      </div>-->
+     
+      <div class="panel-heading">Bookings</div>
+     
+      <!--<div id="collapse1" class="list-group collapse" role="tabpanel" aria-labelledby="heading1"> -->
+        <div class="list-group">
+    
+          {% url 'freelancer_bookings_list' as link_url %}
+          {% include 'includes/panel_link.html' with icon_name='icon-my-bookings' link_text='My bookings' %}
+
+          {% url 'freelancer_backlog' as link_url %}
+          {% freelancer_backlog_count as feedback_action_number %}
+          {% include 'includes/panel_link.html' with icon_name='icon-feedback' link_text='Awaiting feedback' action_number=feedback_action_number %}
+
+          {% url 'freelancer_invitations_list' as link_url %}
+          {% freelancer_open_invitations_count as invitations_action_number %}
+          {% include 'includes/panel_link.html' with icon_name='icon-invitations' link_text='Pending jobs' action_number=invitations_action_number %}
+
+          {% url 'freelancer_applications_list' as link_url %}
+          {% include 'includes/panel_link.html' with icon_name='icon-invitations' link_text='Jobs applied to' %}
+
+          {% url 'notification_list' as link_url %}
+          {% include 'includes/panel_link.html' with icon_name='icon-notification' link_text='Notifications' %}
+
+          {% url 'availability_update' as link_url %}
+          {% include 'includes/panel_link.html' with icon_name='icon-availability' link_text='My availability' %}
+      </div>
+    </div>
+{% endif %}

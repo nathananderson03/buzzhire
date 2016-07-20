@@ -1,0 +1,15 @@
+{% extends 'form_page.html' %}
+{% load icons %}
+
+{% block content %}
+    {% comment %}
+    <div class='text-center'>
+        <p>Don't have an account? <a class='btn btn-sm btn-default' href='{{ signup_url }}'>Register</a></p>
+    </div>
+    {% endcomment %}
+    {{ block.super }}
+    <div class='text-center'>
+        <p><a class="btn btn-sm btn-default" href="{% url 'account_reset_password' %}"> Forgot Password?</a></p>
+    </div>
+    
+{% endblock %}

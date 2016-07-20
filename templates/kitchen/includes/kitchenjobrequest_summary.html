@@ -1,0 +1,11 @@
+{% extends 'job/includes/jobrequest_summary.html' %}
+{% load humanize %}
+
+{% block extra_fields %}
+    <tr>
+        <th>Role</th>
+        <td>
+            <span class='label label-default'>{{ object.get_role_display|capfirst }}</span>
+        </td>
+    </tr>
+{% endblock %}

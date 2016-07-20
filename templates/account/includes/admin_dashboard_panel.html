@@ -1,0 +1,14 @@
+{% load icons %}
+{% if request.user.is_admin %}
+    <div class="panel panel-default">
+      <div class="panel-heading">Admin</div>
+      <div class="list-group">
+          
+          {% url 'job_request_admin_list' as link_url %}
+          {% include 'includes/panel_link.html' with icon_name='icon-my-bookings' link_text='Job requests' %}
+          {% url 'job_requests_pending_confirmation' as link_url %}
+          {% include 'includes/panel_link.html' with icon_name='icon-confirm' link_text='Jobs pending confirmation' %}
+          
+      </div>
+    </div>
+{% endif %}

@@ -1,0 +1,17 @@
+{% load freelancer feedback %}
+<div class='row'>
+    <div class='col-md-2'>
+        {% profile_photo freelancer 'small'  %}
+    </div>
+    <div class='col-md-6'>
+        <h5>{{ freelancer.get_full_name }}</h5>
+        <div class='average-feedback-score'>
+            {% average_score freelancer.average_score %}
+        </div>
+        {{ freelancer.get_years_experience_display }} of experience.
+        {% block extra_fields %}{% endblock %}
+    </div>
+    <div class='col-md-4'>
+        {% feedback_for_freelancer_own booking %}
+    </div>
+</div>

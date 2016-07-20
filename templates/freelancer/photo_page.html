@@ -1,0 +1,21 @@
+{% extends 'account/dashboard_base.html' %}
+{% load icons freelancer %}
+
+{% block content %}
+    <div class='row'>
+        <!--<div class='col-md-5'>
+            <p>A likeness of yourself that your prospective clients will be able to see.</p>
+            {% if object.photo %}
+                <a href='{% url 'freelancer_photo_update' %}' class='btn btn-lg no-margins btn-default'>{{ 'upload'|icon }} Upload a new photo</a>
+            {% else %}
+                <a href='{% url 'freelancer_photo_update' %}' class='btn btn-lg no-margins btn-primary'>{{ 'upload'|icon }} Upload a photo</a>
+            {% endif %}
+        </div> -->
+        
+        <div class='col-md-12 text-center bottom-space profile-photo-page'>
+            <h3 class="blue f26"> Your photo </h3>
+            {% profile_photo object 'large' %}
+        </div>
+    </div>
+    
+{% endblock %}  

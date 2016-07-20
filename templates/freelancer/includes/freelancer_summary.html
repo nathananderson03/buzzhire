@@ -1,0 +1,26 @@
+{% load icons freelancer %}
+<div class='well'>
+    <p>
+        <a class='monospace' href='{{ object.get_absolute_url }}'>{{ object.reference_number }}</a><br>
+        {{ object|freelancer_service_key|icon }} {{ object.get_full_name }}<br>
+    </p>
+    <table class='table text-left'>
+        <tbody>
+            {% block extra_rows_top %}{% endblock %}
+            {% if object.postcode %}
+                <tr> 
+                    <th>Postcode</th>
+                    <td>{{ object.postcode }}</td>
+                </tr>
+                <tr>
+                    <th>Travel distance</th>
+                    <td>{{ object.travel_distance }} mile{{ object.travel_distance|pluralize }}</td>
+                </tr>
+            {% endif %}
+            <tr>
+                <th>Minimum pay per hour</th>
+                <td>&pound;{{ object.minimum_pay_per_hour.amount }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

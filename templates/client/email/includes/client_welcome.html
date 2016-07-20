@@ -1,0 +1,20 @@
+{% load main_tags core_tags %}
+
+<p>Hi {{ object.first_name }},</p>
+
+<p>Welcome to the BuzzHire community!</p>
+
+<p>You're nearly all set up! Just log on to the platform
+<a href='{% base_url %}{% url 'account_login' %}'>here</a> and post
+your job requirements - we'll take care of the rest  and will
+find you a qualified and experienced BuzzWorker. It’s that simple!</p>
+
+<p>We can't wait to help you fill those recruitment gaps with
+awesome BuzzWorkers!</p> 
+
+<p>If you have any questions in the meantime, please feel free to get
+in touch with us by emailing {% contact_email %} or calling {% contact_phone %}.</p>
+
+<p>Have a great day!</p>
+
+<p>The BuzzHire team</p>

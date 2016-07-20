@@ -1,0 +1,5 @@
+{% extends 'account/dashboard_base.html' %}
+{% block content %}
+    {% include 'includes/tabs.html' %}  
+    {% include 'booking/includes/invitations_table.html' with applications_mode=True %}
+{% endblock %}

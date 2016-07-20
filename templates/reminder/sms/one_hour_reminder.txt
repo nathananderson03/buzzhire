@@ -1,0 +1,1 @@
+{% load core_tags %}JOB STARTING in 1 Hour: Location: {{ job_request.postcode }}. Client Name: {{ job_request.client }}.  Please make sure you arrive 15min early.

@@ -1,0 +1,41 @@
+{% extends 'page_fullwidth.html' %}
+{% load core_tags django_bootstrap_breadcrumbs %}
+{% block page_title %}{% endblock %}
+
+{# Move messages to content column #}
+{% block messages %}{% endblock %}
+
+{# Hide breadcrumbs #}
+{% block breadcrumbs_wrapper %}{% endblock %}
+
+{% block content_row_wrapper %}
+    <div class='container sidebar-right-page' style='width: 100%'>
+        <div class='row after-breadcrumb sidebar' style='background: rgb(247,247,247);'>
+            <div class='col-md-7 col-md-offset-1 pad0' >
+                {% block page_title_sidebar %}
+                    <div class="sidebar-page-title">
+                      <h4>{% block page_title_inner %}{{ title }}{% endblock %}</h4>
+                    </div>
+                    <div class="clearfix"></div>
+                {% endblock %}
+
+                <div class="sidebar-right-alert">
+                {% block messages_sidebar %}
+                    {% if messages %}
+                      {% include 'includes/messages.html' with top_space=False %}
+                    {% endif %}
+                {% endblock %}
+                </div>
+
+                <div class="sidebar-content"> 
+                  {% block content %}{% endblock %}
+                </div>
+                
+            </div>
+            <div class='col-md-4 sidebar-main' style='color: white; background: rgba(0, 0, 0, 0) linear-gradient(to right, rgb(44, 124, 187), rgb(60, 153, 227)) repeat scroll 0 0;'>
+                {% block sidebar %}{% endblock %}
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

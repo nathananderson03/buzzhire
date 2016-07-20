@@ -1,0 +1,9 @@
+{% load core_tags %}
+
+{% summary_for_email object 'client' %}
+
+{% with object.bookings.published as bookings %}
+  <p></p>
+  <h4>Your freelancer{{ bookings|pluralize }}</h4>
+  {% include 'booking/email/includes/bookings_or_invitations_for_job_request.html' with object_list=bookings %}
+{% endwith %}

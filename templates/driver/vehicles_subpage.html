@@ -1,0 +1,7 @@
+{% extends 'account/dashboard_base.html' %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block inner_breadcrumb %}
+  {{ block.super }}
+  {% breadcrumb 'Vehicles' 'drivervehicletype_list' %}
+{% endblock %}

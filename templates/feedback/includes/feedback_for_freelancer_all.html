@@ -1,0 +1,28 @@
+{% load feedback icons %}
+{% if object_list %}
+    <h5 class="blue text-center f35 feedback-all-title HelveticaLight"> Reviews</h5>
+    {% for object in object_list %}
+        <div class='feedback col-md-4'>
+            <div class='well'>
+            
+        
+            <p>{% feedback_score object.score %}</p>
+            {% if object.comment %}
+                <div class='feedback-comment'>
+                    <em>{{ object.comment|linebreaks }}</em>
+                    <p class="text-center"><em>{{ object.date.date }}</em></p> 
+                </div>
+            {% endif %}
+            
+            <span class="blue Helvetica f16 text-center block"> {{ object.get_author }}</span> 
+              
+           </div>
+        </div>
+
+        {% if forloop.counter|divisibleby:3 and not forloop.last %}
+        <div class="clearfix"></div>
+        <hr>
+        {% endif %}
+    {% endfor %}
+    <div class="clearfix"></div>
+{% endif %}

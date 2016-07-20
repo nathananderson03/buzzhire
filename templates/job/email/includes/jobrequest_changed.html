@@ -1,0 +1,7 @@
+{% load core_tags %}
+<p>Dear {{ object.client.first_name }},</p>
+
+<p>Changes have been made to the job you requested.  Here are the new details:</p>
+
+{% summary_for_email object 'client' %}
+

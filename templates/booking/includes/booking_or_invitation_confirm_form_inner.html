@@ -1,0 +1,15 @@
+{% extends 'includes/forms/confirm_form_inner.html' %}
+{% load icons core_tags %}
+{% block after_question %}
+    <div class='row' style='margin-top: 3em;'>
+        <div class='col-md-5'>
+            {% summary form.freelancer %}
+        </div>
+        <div class='col-md-2'>
+            <h3 class='light-icon'>{{ 'right_arrow'|icon }}</h3>
+        </div>
+        <div class='col-md-5'>
+            {% summary form.job_request %}
+        </div>
+    </div>
+{% endblock %}

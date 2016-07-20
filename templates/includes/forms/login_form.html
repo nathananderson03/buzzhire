@@ -1,0 +1,9 @@
+{% extends 'includes/forms/form.html' %}
+
+{% block form_top %}
+  <p>Don't have an account?  <a href='{% url 'registration_register' %}'>Register.</a></p>
+{% endblock %}
+
+{% block form_bottom %}
+  <p class="txtsml"><a href="{% url 'password_reset' %}">Forgotten your password?</a></p>
+{% endblock %}

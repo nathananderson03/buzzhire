@@ -1,0 +1,11 @@
+{% load feedback icons %}
+{% if request.user.is_client %}
+    {% client_backlog_count as backlog %}
+    {% if backlog %}
+        <div class='alert alert-warning'>
+            <p>You have <strong>{{ backlog }}</strong> jobs awaiting feedback.</p>
+            <p>Please leave feedback before booking any more drivers.</p>
+            <p><a href='{% url 'client_backlog' %}' class='btn btn-default'>Leave feedback</a></p>
+        </div>
+    {% endif %}
+{% endif %}

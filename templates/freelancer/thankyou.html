@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load django_bootstrap_breadcrumbs icons %}
+
+{% block inner_breadcrumb %}
+    {% breadcrumb 'Become a freelancer' 'freelancer_signup' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class='text-center'>
+        <p>Thank you for your application.</p>
+        <p>We'll be in touch soon to schedule an interview.</p>
+        <p><a class='btn btn-lg btn-default' href='{% url 'account_dashboard' %}'>{{ 'dashboard'|icon }} Go to freelancer dashboard</a></p>
+    </div>
+{% endblock %}
+

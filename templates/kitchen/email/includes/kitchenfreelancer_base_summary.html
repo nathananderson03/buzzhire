@@ -1,0 +1,6 @@
+{% extends 'freelancer/email/includes/freelancer_base_summary.html' %}
+
+{% block extra_info %}
+<br>
+<strong>Role:</strong> {{ object.get_role_display }}
+{% endblock %}

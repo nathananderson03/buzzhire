@@ -1,0 +1,14 @@
+{% extends 'job/jobrequest_job_matching.html' %}
+{% load crispy_forms_tags %}
+
+{% block column_three_fields %}
+    {{ form.role|as_crispy_field }}
+{% endblock %}
+
+{% block additional_headings %}
+    <th>Role</th>
+{% endblock %}
+
+{% block additional_cells %}
+    <td><span class='label label-primary'>{{ object.get_role_display }}</span></td>
+{% endblock %}

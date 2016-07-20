@@ -1,0 +1,10 @@
+{% load thumbnail staticthumbnail core_tags %}
+{% if object.photo %}
+    {% thumbnail object.photo dimensions crop='center' as im %} 
+        <img class='profile-photo' src='{% if for_email %}{% base_url %}{% endif %}{{ im.url }}' width='{{ im.width }}' height='{{ im.height }}' />
+    {% endthumbnail %}
+{% else %}
+    {% staticthumbnail 'img/freelancer/default_profile.png' dimensions crop='center' as im %} 
+        <img class='profile-photo' src='{% if for_email %}{% base_url %}{% endif %}{{ im.url }}' width='{{ im.width }}' height='{{ im.height }}'/>
+    {% endthumbnail %}
+{% endif %}

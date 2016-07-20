@@ -1,0 +1,10 @@
+{% load core_tags %}
+<p>A new freelancer just signed up:</p>
+
+ <table class="button" style='margin-top: 10px; margin-bottom: 10px;'>
+    <tr>
+      <td>
+        <a href='{% base_url %}{{ object.get_absolute_url }}'>View freelancer</a>
+      </td>
+    </tr>
+</table>

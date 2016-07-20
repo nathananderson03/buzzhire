@@ -1,0 +1,158 @@
+{% load icons humanize feedback %}
+{% if object_list %}
+{% for object in object_list %}
+    <div class="col-md-4">
+        <div class="booking-box">
+
+
+            <div class="reference">
+                    <a href='{{ object.get_absolute_url }}' class="btn btn-default">#{{ object.reference_number }}</a>
+
+            </div>
+            <div class="profile-picture">{{ 'icon-notification-panel'|icon }}</div>
+            {% if request.user.is_admin %}
+                <p class="f14 black">{{ object.client }}</p>
+            {% endif %}
+
+            <p class="f20 black">{{ object.date }}, {{ object.start_time }}</p>
+
+
+            <div class="job-request-table-wrap">
+                <table class="table job-request-table black f14">
+                    {% if request.user.is_admin %}
+                    <tr>
+                        <td>Invited freelancers: {{ object.number_of_invited_freelancers }} </td>
+                    </tr>
+                    <tr>
+                        <td>Applied freelancers: {{ object.number_of_applied_freelancers }} </td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <td> Service </td>
+                        <td> <span class='label label-default'>{{ object.service|capfirst }}</span></td>
+                    </tr>
+                    <tr>
+                        <td> Duration </td>
+                        <td class="blue"> {{ object.duration }} hour{{ object.duration|pluralize }}</td>
+                    </tr>
+                    <tr>
+                        <td> Location </td>
+                        <td class="blue"> 
+                            
+                                {% include 'job/includes/location.html' %}
+                            
+                        </td>
+                    </tr>
+
+
+                    {% if object.service != 'cleaner' %}
+                        <tr>
+                            {% if object.service == 'driver' and object.get_vehicle_type_display %}
+                                <td> Vehicle type </td>
+                                <td><span class='label label-default'>{{ object.get_vehicle_type_display }} </span></td>
+                            {% else %}
+                                {% if object.get_role_display %}
+                                <td> Role </td> 
+                                <td> <span class='label label-default'>{{ object.get_role_display }} </span> </td>
+                                {% endif %}
+                            {% endif %}
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <td>Pay per hour</td>
+                        <td class="blue">&pound;{{object.client_pay_per_hour.amount}}</td>
+                    </tr>
+                    <tr>
+                        <td>Number of freelancers</td>
+                        <td class="blue">{{ object.number_of_freelancers }}</td>
+                    </tr>
+                    <tr>
+                        <td>Tip</td>
+                        <td class="blue">
+                            {% if object.tips_included %} 
+                            <i class="fa fa-check"></i> 
+                            {% else %}
+                            <i class="fa fa-times"></i>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Status</td>
+                        <td class="blue">
+                            {{ object.get_status_display }}
+                        </td>
+                    </tr>
+                    {% if object.comments %}
+                    <tr>
+                        <td>Comments</td>
+                        <td class="comment-cell">
+                            {{ object.comments|linebreaks }}
+                        </td>
+                    </tr>
+                     {% endif %}
+                </table>
+                
+                {% if object|client_feedback_needed %}
+                    <a href='{% url 'client_feedback_create' object.pk %}' class='btn btn-primary leave-feedback-btn' style="margin-bottom:10px"> 
+                        Leave feedback
+                    </a>
+                {% endif %}
+            </div>
+            
+            <div class="total-box">
+          
+                <table class="table total-table white f14 mar0">
+                    <tr>
+                        <td> Total </td>
+                        <td>
+                            &pound;{{ object.client_pay_per_hour.amount }}
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+ {% endfor %} 
+ <div class="clearfix"></div> 
+    <!--<table class='table'>
+        <thead>
+            <th>Reference</th>
+            {% if request.user.is_admin %}
+                <th>Client</th>
+            {% endif %}
+            <th>Start date and time</th>
+            <th>Duration</th>
+            <th>Location</th>
+            <th>Freelancer type</th>
+            <th>Number of freelancers</th>
+            <th>Status</th>
+            <th>Your feedback</th>
+        </thead>
+        <tbody>
+            {% for object in object_list %}
+                <tr>
+                    <td><a href='{{ object.get_absolute_url }}'>{{ object.reference_number }}</a></td>
+                    {% if request.user.is_admin %}
+                        <td>{{ object.client }}</td>
+                    {% endif %}
+                    <td>{{ 'date'|icon }} {{ object.date }}<br>{{ 'time'|icon }} {{ object.start_time }}</td>
+                    <td>{{ object.duration }} hour{{ object.duration|pluralize }}</td>
+                    <td>{% include 'job/includes/location.html' %}</td>
+                    <td><span class='label label-default'>{{ object.service|capfirst }}</span></td>
+                    <td>{{ object.number_of_freelancers }}</td>
+                    <td>{{ object.get_status_display }}</td>
+                    <td>
+                        {% if object|client_feedback_needed %}
+                            <a href='{% url 'client_feedback_create' object.pk %}' class='btn btn-primary'>{{ 'feedback'|icon }} Leave feedback</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}        
+        </tbody>
+    </table> -->
+    {% include 'includes/paginator.html' %}
+{% else %}
+    <p class='well top-space'>No jobs.</p>
+{% endif %}   

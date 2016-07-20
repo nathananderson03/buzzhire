@@ -1,0 +1,47 @@
+{% extends 'account/dashboard_base.html' %}
+{% load icons %}
+
+{% block content %}
+    <h5>Welcome to your account dashboard!</h5>
+    {% if request.user.is_freelancer %}
+        {% if request.user.freelancer.published %}
+            <div class='alert alert-success'>
+                <p>Your account is now <strong>approved</strong>.</p>
+            </div>
+        {% else %}
+            <div class='alert alert-warning'>
+                <p>Before you can take on jobs, your account <strong>must be approved</strong>.</p>
+                {% if request.user.is_driver %}
+                    <p>To get approved, please
+                        <a target='_blank' href='https://delivery-buzzhire.acuityscheduling.com'>schedule an interview with us</a>.
+                    </p>
+                {% else %}
+                    <p>To get approved, please
+                        <a target='_blank' href='https://hospitality-buzzhire.acuityscheduling.com'>schedule an interview with us</a>.
+                    </p>
+                {% endif %}
+            </div>
+        {% endif %}
+        {% if request.user.is_driver and not request.user.driver.vehicle_types.exists %}
+            <div class='alert alert-warning'>
+                <p>Before anyone can book you, we need to know which vehicles you drive.</p>
+                <p><a href='{% url 'drivervehicletype_add' %}' class='btn btn-default'> Create a vehicle</a></p>
+            </div>
+        {% endif %}
+        {% if not request.user.freelancer.availability %}
+            <div class='alert alert-warning'>
+                <p>You have not filled out your availability yet.</p>
+                <p><a href='{% url 'availability_update' %}' class='btn btn-default'> Save availability</a></p>
+            </div>
+        {% endif %}
+        {% comment %}
+            {% if not request.user.freelancer.photo %}
+                <div class='alert alert-warning'>
+                    <p>You have not provided a photo yet.</p>
+                    <p><a href='{% url 'freelancer_photo_update' %}' class='btn btn-default'> Upload photo</a></p>
+                </div>
+            {% endif %}
+        {% endcomment %}
+    {% endif %}
+    {% include 'feedback/includes/dashboard_nag.html' %}
+{% endblock %}

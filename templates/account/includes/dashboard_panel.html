@@ -1,0 +1,29 @@
+{% load icons freelancer %}
+<div class="panel panel-default">
+  <!--<div class="panel-heading mobile-menu-toggler" role="tab" id="heading3">
+     <a href="#collapse3" aria-expanded="false" aria-controls="collapse3" data-toggle="collapse" data-parent="#accordion">
+      Account
+    </a>
+  </div>-->
+  <div class="panel-heading">Account</div>
+  <!--<div id="collapse3" class="list-group collapse" role="tabpanel" aria-labelledby="heading3">-->
+    <div class="list-group">
+
+      {% with client=request.user.client freelancer=request.user.freelancer %}
+          {% if client %}
+            {% url 'client_change' client.pk as link_url %}
+            {% include 'includes/panel_link.html' with icon_name='icon-client_profile_change' link_text='Edit profile' %}
+          {% endif %}
+          {% if freelancer %}
+            {% for link_url, link_text, icon_name in freelancer|freelancer_profile_menu_items %}
+             
+                {% include 'includes/panel_link.html' %}
+            {% endfor %} 
+          {% endif %}
+      {% endwith %}
+      {% url 'account_change_password' as link_url %}
+      {% include 'includes/panel_link.html' with icon_name='icon-password' link_text='Edit password' %}
+      {% url 'account_logout' as link_url %}
+      {% include 'includes/panel_link.html' with icon_name='icon-logout' link_text='Log out' %}
+  </div>
+</div>

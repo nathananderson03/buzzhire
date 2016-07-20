@@ -1,0 +1,92 @@
+{% extends 'account/dashboard_base.html' %}
+{% load crispy_forms_tags icons django_bootstrap_breadcrumbs freelancer core_tags %}
+
+{% block inner_breadcrumb %}
+  {{ block.super }}
+  {% breadcrumb 'Jobs awaiting feedback' 'freelancer_backlog' %}
+  {% breadcrumb object object.get_absolute_url %}
+{% endblock %}
+
+
+
+{% block content %}
+   <div class='row leave-feedback-content' >
+    <p class="blue HelveticaLight">Provide feedback for the following job:</p> 
+     <div class='col-md-6 leave-feedback-job-summary'>
+        
+        {% summary object %}    
+     </div>
+     <div class='col-md-6 leave-feedback-form-wrap'>
+          <form method='post' class="minh470 mar0 posrel">
+           {% for form in formset %}
+              {{ formset.management_form }}
+              <div class="booking-box padb20">
+                 {% with form.feedback_target as feedback_target %}
+                <div class="feedback-form-wrap">
+                   
+                        {% if for_freelancer %}
+                            {# Clients don't have detail pages #}
+                            <div class="feedback-target-wrap">
+                              <div class="feedback-target-info text-left">
+                                {% profile_photo feedback_target 'medium'  %}
+                                
+                                <h5>{{ feedback_target.get_full_name }} </h5>
+                              </div>
+                              <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{feedback_target.reference_number}}" aria-expanded="true" aria-controls="collapse1" class="expand-btn">
+                                <i class="fa fa-lg fa-align-center fa-angle-down"></i>
+                                <i class="fa fa-lg fa-align-center fa-angle-up"></i>
+                              </a>
+                            </div>
+                        {% else %}
+                            <a href="{{ feedback_target.get_absolute_url }}" class="feedback-target-info">
+                                <div class="feedback-target-wrap text-left">
+                                  {% profile_photo feedback_target 'medium'  %}
+
+                                  <h5>{{ feedback_target.get_full_name }} </h5>
+                             
+                                </div>
+                            </a>
+                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{feedback_target.reference_number}}" aria-expanded="true" aria-controls="collapse1" class="expand-btn">
+                              <i class="fa fa-lg fa-align-center fa-angle-down"></i>
+                              <i class="fa fa-lg fa-align-center fa-angle-up"></i>
+
+                             </a>
+                        {% endif %}
+                    
+                
+                </div>
+                <hr>
+                <div id="collapse{{feedback_target.reference_number}}" class="collapse in">
+                    {% crispy form %}  
+                </div>
+                {% endwith %}
+              </div>
+              
+            <!--  {% if not forloop.last %}<hr>{% endif %} -->
+           {% endfor %}
+           <div class='text-center'>
+             <button class='btn btn-lg submit-feedback-btn mar0 btn-primary' name='submit' value='submit'>Submit feedback</button>
+           </div>
+       </form>
+      
+      </div>
+   </div>
+   
+{% endblock %}
+
+{% block extrastyles %}
+  {{ block.super }}
+  {{ formset.media.css }}
+{% endblock %}
+  
+{% block extrascripts %}
+    {{ formset.media.js }}
+    <script type='text/javascript'>
+        $(function() {
+        	$('.rating-widget').rating({
+        		'showClear': false,
+        		'showCaption': false,
+        	})
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,1 @@
+{% load humanize core_tags %}JOB ALERT: New job {% if job_request.date|istoday %}TODAY{% else %}{{ job_request.date }}{% endif %}. Pay: £{{ job_request.freelancer_pay_per_hour.amount }}/hr. Location: {{ job_request.postcode }}. Time: {{ job_request.start_time }} - {{ job_request.end_datetime|time }}. Client Name: {{ job_request.client }}.

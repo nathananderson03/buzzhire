@@ -1,0 +1,58 @@
+{% load icons humanize feedback %}
+{% if object_list %}
+
+
+    {% for object in object_list %}
+    <div class="col-md-4">
+        <div class="booking-box">
+            <div class="reference">
+               <a href='{{ object.jobrequest.get_absolute_url }}' class="btn btn-default">#{{ object.jobrequest.reference_number }}</a>
+            </div>
+            <div class="profile-picture">{{ 'icon-notification-panel'|icon }}</div>
+
+            <p class="f16 black">{{ object.jobrequest.client }}</p>
+
+
+            <p class="f20 black">{{ object.jobrequest.date }}, {{ object.jobrequest.start_time }}</p>
+
+
+            <div class="job-request-table-wrap invitations-request-table-wrap">
+                <table class="table job-request-table black f14">
+
+                    <tr>
+                        <td> Location </td>
+                        <td class="blue">
+                           {% include 'job/includes/location.html' with object=object.jobrequest %}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Pay per hour</td>
+                        <td class="blue">&pound;{{ object.jobrequest.freelancer_pay_per_hour.amount }}</td>
+                    </tr>
+                    
+                </table>
+                {% if object.date_declined %}
+                    <p><strong>Unsuccessful</strong></p>
+                {% elif object.date_applied %}
+                    <p><strong>Applied to</strong></p>
+                {% else %}
+                    <a href='{% url 'invitation_apply' object.pk %}' class='btn btn-primary leave-feedback-btn'> 
+                        Apply
+                    </a>
+                {% endif %}
+            </div>
+             
+        </div>
+    </div>
+
+    {% endfor %} 
+    <div class="clearfix"></div>
+    {% include 'includes/paginator.html' %}
+{% else %}
+    {% if applications_mode %}
+        <p class='well top-space'>No jobs.</p>
+    {% else %}
+        <p class='well top-space'>You have no open invitations.</p>
+    {% endif %}
+{% endif %}   

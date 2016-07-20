@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load staticthumbnail static %}
+
+{% block content_wrapper %}
+
+      {% block breadcrumbs_wrapper %}
+        <div class='container'>
+            {{ block.super }}
+        </div>
+      {% endblock %}
+
+      {% block page_title %}
+          {% if title %}
+               <div class='container'>
+                   <div class="row page-title">
+                        <div class="col-md-12">
+                            <h3>{% block page_title_inner %}{{ title }}{% endblock %}</h3>
+                        </div>
+                    </div>
+               </div>
+          {% endif %}
+      {% endblock %}
+
+      {% block messages %}
+         {% if messages %}
+            <div class='container'>
+                {% include 'includes/messages.html' %}
+            </div>
+         {% endif %}
+      {% endblock %}
+      
+      {% block content_row_wrapper %}
+        {% block content %}{% endblock %}
+      {% endblock %}
+{% endblock %}
+

@@ -1,0 +1,9 @@
+{% if messages %}
+    <div{% if top_space|default_if_none:True %} class='top-space'{% endif %}>
+        {% for message in messages %}
+          <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}">
+            {{ message }}
+          </div>
+        {% endfor %}
+    </div>
+{% endif %}

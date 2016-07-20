@@ -1,0 +1,33 @@
+{% load freelancer feedback core_tags %}
+<p></p>
+{% for booking in bookings %}
+    {% url 'freelancer_detail' booking.freelancer.pk as freelancer_url %}
+    <table class="row">
+      <tr>
+        <td class="wrapper">
+          <table class="three columns">
+            <tr>
+              <td>
+                <a href='{% base_url %}{{ freelancer_url }}'>
+                    {% profile_photo booking.freelancer 'small' for_email=True %}
+                </a>
+              </td>
+              <td class="expander"></td>
+            </tr>
+          </table>
+    
+        </td>
+        <td class="wrapper last">
+    
+          <table class="nine columns">
+            <tr>
+              <td>
+                {% summary_for_email booking.freelancer 'client' %}
+              </td>
+              <td class="expander"></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+{% endfor %}

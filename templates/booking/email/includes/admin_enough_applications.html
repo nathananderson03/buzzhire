@@ -1,0 +1,21 @@
+{% load core_tags admin_urls %}
+
+{% block top_message %}
+<p>The following job request now has enough applications to be confirmed.</p>
+{% endblock %}
+
+<table class="button" style='margin-top: 10px; margin-bottom: 10px;'>
+    <tr>
+      <td>
+        <a href='{% base_url %}{{ object.get_absolute_url }}'>View job request</a>
+      </td>
+    </tr>
+</table>
+
+{% summary_for_email object 'admin' %}
+
+{% with object.invitations.undeclined_applications as invitations %}
+    <p></p>
+    <h4>Application{{ invitations|pluralize }}</h4>
+    {% include 'booking/email/includes/bookings_or_invitations_for_job_request.html' with object_list=invitations %}
+{% endwith %}

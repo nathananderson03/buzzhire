@@ -1,0 +1,6 @@
+{% load icons core_tags %}
+<a class='sidebar-link list-group-item{% if request.path|startswith:link_url %} active{% endif %}' href='{{ link_url }}'>
+   {% if icon_name %}{{ icon_name|icon }} {% endif %}{{ link_text }}
+   {% if action_number %}<span class='badge'>{{ action_number }}</span>{% endif %}
+</a>
+

@@ -1,0 +1,4 @@
+<br />
+<b>Warning</b>:  fopen() [<a href='function.fopen'>function.fopen</a>]: Filename cannot be empty in <b>/home/all4wed/domains/font-cat.com/public_html/dwnl_font.php</b> on line <b>13</b><br />
+<br />
+<b>Warning</b>:  fread() expects parameter 1 to be resource, boolean given in <b>/home/all4wed/domains/font-cat.com/public_html/dwnl_font.php</b> on line <b>14</b><br />

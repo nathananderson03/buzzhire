@@ -1,0 +1,207 @@
+{% extends 'account/dashboard_base.html' %}
+{% load icons humanize django_bootstrap_breadcrumbs freelancer booking admin_urls core_tags %}
+
+{% block inner_breadcrumb %}
+  {{ block.super }}
+  {% if client %}
+    {% breadcrumb 'Requested jobs' 'requested_jobs' %}
+  {% elif request.user.is_admin %}
+    {% breadcrumb 'Job requests' 'job_request_admin_list' %}
+  {% else %}
+    {% if object|booking_exists_for_freelancer:request.user.freelancer %}
+        {% breadcrumb 'Bookings' 'freelancer_bookings_list' %}
+    {% else %}
+        {% breadcrumb 'Pending job requests' 'freelancer_invitations_list' %}
+    {% endif %}
+  {% endif %}
+{% endblock %}
+
+{% block page_actions %}
+    {% if request.user.is_admin %}
+        <a class='btn btn-default' href='{% url 'job_matching_for_job_request' object.pk %}'>{{ 'job_matching'|icon }} Job matching</a>
+        <a class='btn btn-default' href='{% url 'jobrequest_edit' object.pk %}'>{{ 'edit'|icon }} Edit</a>
+        <a class='btn btn-default' href='{% url object|model_opts|admin_urlname:'change' object.pk %}'>{{ 'admin'|icon }} View in Django admin</a>
+        
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if object.status = 'IC' %}
+        <div class='alert alert-warning text-center'>
+            <p><strong>This job is still in checkout.</strong></p>
+            {% if request.user.client == object.client %}
+                <a class='btn btn-lg btn-warning' href='{% url 'job_request_checkout' object.pk %}'>Confirm and pay</a>
+            {% endif %}
+        </div>
+    {% endif %}
+        
+    <div class='row'>
+        <div class='col-md-4 col-md-push-8'>
+            <h5>Details</h5>
+            <table class='table table-striped'>
+                <tr>
+                    <th>Reference</th>
+                    <td>
+                        <span style='font-family: monospace;'>{{ object.reference_number }}</span>
+                    </td>
+                </tr>
+                {% if not request.user.is_client %}
+                    <tr>
+                        <th>Client</th>
+                        <td>
+                            {{ object.client }}
+                        </td>
+                    </tr>
+                    {% if object.client.company_name %}
+                        <tr>
+                            <th>Client contact</th>
+                            <td>
+                                {{ object.client.get_full_name }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endif %}
+                {% if request.user.is_admin %}
+                    <tr>
+                        <th>Client email</th>
+                        <td>
+                            {{ object.client.user.email }}
+                        </td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <th>Date submitted</th>
+                    <td>
+                        {{ 'date'|icon }} {{ object.date_submitted.date }}<br>
+                        {{ 'time'|icon }} {{ object.date_submitted|time }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>
+                        <span class='label label-default'>{{ object.get_status_display }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Has enough applications?</th>
+                    <td>
+                        {{ object.has_enough_applications|yesno|icon }}
+                    </td>
+                </tr>
+             </table>
+             <h5>Financial</h5>
+             <table class='table table-striped'>
+                {% if request.user.is_admin %}
+                    <tr>
+                        <th>Client pay per hour</th>
+                        <td>
+                            &pound;{{ object.client_pay_per_hour.amount }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Freelancer pay per hour</th>
+                        <td>
+                            &pound;{{ object.freelancer_pay_per_hour.amount }}
+                        </td>
+                    </tr>
+
+                {% else %}
+                    <tr>
+                        <th>Pay per hour</th>
+                        <td>
+                            {% if request.user.is_client %}
+                                &pound;{{ object.client_pay_per_hour.amount }}
+                            {% else %}
+                                &pound;{{ object.freelancer_pay_per_hour.amount }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <th>Inclusive of tips?</th>
+                    <td>
+                        {{ object.tips_included|yesno|icon }}
+                    </td>
+                </tr>
+             </table>
+             <h5>Location and date</h5>
+             <table class='table table-striped'>
+                <tr>
+                    <th>Date and time</th>
+                    <td>
+                        {{ 'date'|icon }} {{ object.date }}<br>
+                        {{ 'time'|icon }} {{ object.start_time }}
+                    </td>
+                </tr>
+                {% if request.user.is_freelancer %}
+                    <tr>
+                        <th>Arrival time</th>
+                        <td>{{ 'time'|icon }} {{ object.arrival_time }}</td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <th>Duration</th>
+                    <td>
+                        {{ object.duration }} hour{{ object.duration|pluralize }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Location</th>
+                    <td>
+                        <address>
+                           {% include 'job/includes/location.html' %}
+                        </address>
+                    </td>
+                </tr>
+             </table>
+        </div>
+        
+        <div class='col-md-8 col-md-pull-4'>
+             <h5>Job requirements</h5>
+             <table class='table table-striped'>
+                 <tr>
+                    <th>Type</th>
+                    <td>
+                        <span class='label label-default'>{{ object.service|capfirst }}</span>
+                    </td>
+                 </tr>
+
+                 <tr>
+                    <th>Number of freelancers</th>
+                    <td>
+                        {{ object.number_of_freelancers }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Minimum years of experience</th>
+                    <td>
+                        {{ object.get_years_experience_display }}
+                    </td>
+                </tr>
+                {% block extra_job_requirements %}{% endblock %}
+            </table>
+            {% if object.comments %}
+                <h5>Comments</h5>
+                <div class='compact'>{{ object.comments|linebreaks }}</div>
+            {% endif %}
+
+            {% include 'booking/includes/bookings_for_job_request.html' %}
+
+            {% if request.user.is_freelancer %}
+            {% if object|booking_exists_for_freelancer:request.user.freelancer %}
+                <span class='label label-success'>{{ 'yes'|icon }} You have been booked</span>
+            {% else %}
+                {% with object|invitation_for_freelancer:request.user.freelancer as invitation %}
+                    {% if invitation.date_declined %}
+                        <span class='label label-warning'>{{ 'no'|icon }} Your application for this job was unsuccessful</span>
+                    {% elif invitation.can_be_applied_to %}
+                        <a class='btn btn-primary green-btn accept-job-button' href='{% url 'invitation_apply' invitation.pk %}'> Apply for job</a>
+                    {% elif invitation.date_applied %}
+                        <span class='label label-info'>{{ 'yes'|icon }} You have applied to this job</span>
+                    {% endif %}
+                {% endwith %}
+            {% endif %}
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}

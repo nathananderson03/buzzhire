@@ -1,0 +1,15 @@
+{% load icons feedback %}
+{% if score %}
+    <span class='feedback-score-wrapper'>
+        <span class='feedback-score'>
+            {% for unit in split_score %}
+                {% feedback_icon unit for_email=for_email %}
+            {% endfor %}
+        </span>
+        {% if include_value %}
+            <br>{{ score }}
+        {% endif %}
+    </span>
+{% else %}
+    <p class='no-reviews'>No reviews yet.</p>
+{% endif %}

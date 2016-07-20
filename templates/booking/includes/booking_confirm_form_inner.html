@@ -1,0 +1,16 @@
+{% extends 'booking/includes/booking_or_invitation_confirm_form_inner.html' %}
+
+{% block buttons %}
+    <div class='row'>
+        <div class='col-md-6 col-md-offset-3'>
+            {{ block.super }}    
+            {% comment %}
+            <div class='alert alert-warning top-space'>
+                Booking this freelancer will fulfil the job request.  Click 'Book and mark as confirmed'
+                to automatically mark the job request as confirmed and notify all unsuccessful applicants.
+            </div>
+            <button name='mark_as_confirmed' class='btn btn-warning btn-lg'> Book and mark as confirmed</button><br>
+            {% endcomment %}
+        </div>
+    </div>
+{% endblock %}

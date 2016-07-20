@@ -1,0 +1,62 @@
+{% extends 'page_fullwidth.html' %}
+{% load core_tags django_bootstrap_breadcrumbs %}
+{% block page_title %}{% endblock %}
+
+{# Move messages to content column #}
+{% block messages %}{% endblock %}
+
+{# Move breadcrumbs #}
+{% block breadcrumbs_wrapper %}{% endblock %}
+
+{% block content_row_wrapper %}
+    <div class='container sidebar-page'>
+        <div class='row after-breadcrumb sidebar'>
+            <div class='col-md-2 col-md-offset-1 pad0'>
+               <div class="mobile-menu-toggler" role="tab" id="heading1">
+                 <a href="#collapse1" aria-expanded="false" aria-controls="collapse1" data-toggle="collapse" data-parent="#accordion">
+                  Manage Account <i class="fa fa-chevron-down white"></i>
+                </a>
+              </div>
+              <div id="collapse1" class="list-group collapse" role="tabpanel" aria-labelledby="heading1">
+                {% block sidebar %}{% endblock %}
+              </div>
+            </div>
+            <div class='col-md-9 sidebar-main pad0'>
+              
+                {% block messages_sidebar %}
+                    {% if messages %}
+                      {% include 'includes/messages.html' with top_space=False %}
+                    {% endif %}
+                {% endblock %}
+                
+                {% block page_title_sidebar %}
+                    {% block breadcrumbs %}
+                      {% if title %}
+                         {% block home_breadcrumb %}{% breadcrumb 'Home' '/' %}{% endblock %}
+                         {% block inner_breadcrumb %}
+                             {# Extend this block to put the page path inside #}
+                         {% endblock %}
+                         {% breadcrumb title request.path %}
+                      {% endif %}
+                    {% endblock %}
+
+                    {% block breadcrumb_display %}
+                      <div class='sidebar-breadcrumbs'>
+                         {% render_breadcrumbs "django_bootstrap_breadcrumbs/bootstrap3.html" %}
+                      </div>
+                    {% endblock %}
+                    <div class="sidebar-page-title">
+                      <h4>{% block page_title_inner %}{{ title }}{% endblock %}</h4>
+                    </div>
+                    <div class="clearfix"></div>
+
+                {% endblock %}
+                <div class="sidebar-content"> 
+                  {% block content %}{% endblock %}
+                  <div style="clear: both;"></div>
+                </div>
+              
+            </div>
+        </div>
+    </div>
+{% endblock %}

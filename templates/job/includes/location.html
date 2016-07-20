@@ -1,0 +1,6 @@
+<address>
+    {{ object.address1 }}<br>
+    {% if object.address2 %}{{ object.address2 }}<br>{% endif %}
+    {{ object.get_city_display }}<br>
+    {{ object.postcode }}
+</address>

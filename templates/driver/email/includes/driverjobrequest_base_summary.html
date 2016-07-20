@@ -1,0 +1,13 @@
+{% extends 'job/email/includes/jobrequest_base_summary.html' %}
+
+{% block extra_job_info %}
+    <h5>Vehicle</h5>
+    <p></p>
+    <p><strong>Vehicle type:</strong> {{ object.get_vehicle_type_display }}</p>
+    <p><strong>Does the driver need to supply their own vehicle?</strong> {{ object.own_vehicle|yesno|capfirst }} </p>
+    {% if object.delivery_box_applicable %}<p><strong>Minimum delivery box:</strong> {{ object.get_minimum_delivery_box_display }} </p>{% endif %}
+{% endblock %}
+
+{% block extra_freelancer_info %}
+    <p><strong>Phone requirement:</strong> {{ object.get_phone_requirement_display }} </p>
+{% endblock %}

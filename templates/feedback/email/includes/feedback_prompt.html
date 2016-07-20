@@ -1,0 +1,30 @@
+{% load core_tags %}
+<p>The following job has now finished.  We'd love to hear your feedback on the
+{% if client %}freelancer{{ object.number_of_freelancer|pluralize }}{% else %}client{% endif %}.</p>
+
+{% if client %}
+  <table class="button">
+    <tr>
+      <td>
+        <a href='{% base_url %}{% url 'client_feedback_create' object.pk %}'>Leave feedback</a>
+      </td>
+    </tr>
+  </table>
+  {% summary_for_email object 'client' %}
+  
+  {% with object.bookings.published as bookings %}
+      <p></p>
+      <h4>Your freelancer{{ bookings|pluralize }}</h4>
+      {% include 'booking/email/includes/bookings_or_invitations_for_job_request.html' with object_list=bookings %}
+  {% endwith %}
+
+{% else %}
+  <table class="button">
+    <tr>
+      <td>
+        <a href='{% base_url %}{% url 'freelancer_feedback_create' object.pk %}'>Leave feedback</a>
+      </td>
+    </tr>
+  </table>
+  {% summary_for_email object 'freelancer' %}
+{% endif %}

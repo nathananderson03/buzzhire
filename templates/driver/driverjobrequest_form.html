@@ -1,0 +1,6 @@
+{% extends 'job/jobrequest_form.html' %}
+
+{% block extrascripts %}
+    {{ block.super }}
+    {% include 'driver/includes/forms/driver_job_request_form_js.html' %}
+{% endblock %}

@@ -1,0 +1,6 @@
+{% load core_tags humanize %}
+
+<p>Dear {{ object.client.first_name }},</p>
+<p>You have now booked the job below.  We will be in touch shortly to confirm your freelancer{{ object.number_of_freelancers|pluralize }}.</p>
+
+{% summary_for_email object 'client' %}

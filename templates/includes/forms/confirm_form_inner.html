@@ -1,0 +1,14 @@
+{% load icons %}
+<div class='text-center'>
+    <div class='well'>
+        <h5>{{ question }}</h5>
+        {% block after_question %}{% endblock %}
+        <div class='text-center'>
+            {% block buttons %} 
+                <button name='confirm' class='btn btn-primary btn-lg'> {{ action_text }}</button><br>
+                <a class='btn btn-default' href='{{ cancel_url }}'>{{ cancel_text }}</a>
+            {% endblock %}
+        </div>
+        
+    </div>
+</div>

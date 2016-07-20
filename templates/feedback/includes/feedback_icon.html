@@ -1,0 +1,6 @@
+{% load icons static %}
+{% if for_email %}
+     <img style='clear: none;' src='{{ base_url }}{% static image_path %}'/>
+{% else %}
+    {{ icon_name|icon }}
+{% endif %}

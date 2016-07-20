@@ -1,0 +1,26 @@
+{% extends 'job/job_create_base.html' %}
+{% load crispy_forms_tags icons %}
+{% block content %}
+    <div class='row'>
+        <div class='col-md-6 client-login-form'>
+            <h5>Log in</h5>
+            <p class="f18 Helvetica">Already have a BuzzHire account?</p>
+            <p><a class='btn btn-primary btn-lg' href='{% url 'account_login' %}?next={% url 'job_request_create' service.key %}' style="width: 100%; margin:0"> Log in</a> 
+            <p><a href='{% url 'account_reset_password' %}' class="f18 Helvetica">Forgotten your password?</a>
+        </div>
+        <div class='col-md-6 client-signup-form'>
+            <h5>Create an account</h5>
+             <form method="post">
+                {% csrf_token %}
+                {% if extra_forms.0.errors or extra_forms.1.errors or form.errors %}
+                    {% include 'includes/forms/invalid_form_message.html' with force_show=True %}
+                {% endif %}
+                {% crispy form %}
+                
+                
+                {% crispy extra_forms.0 %}
+                {% crispy extra_forms.1 %}
+            </form>    
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% load feedback core_tags %}
+<h5><a href='{% base_url %}{{ object.get_absolute_url }}'>{{ object.get_full_name }}</a></h5>
+<br>
+{% average_score object.average_score for_email=True %}
+<br>
+<strong>Driving experience:</strong> {{ object.get_driving_experience_display }}
+{% block extra_info %}{% endblock %}

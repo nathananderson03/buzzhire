@@ -1,0 +1,146 @@
+{% extends 'page_fullwidth.html' %}
+{% load icons crispy_forms_tags static %}
+
+{% block breadcrumbs_wrapper %}{% endblock %}
+{% block content_row_wrapper %}
+{% block page_title %}{% endblock %}
+
+<div class="top-content" data-background-images="[&quot;{% static 'img/hero/bar.jpg' %}&quot;,
+                                                                    &quot;{% static 'img/hero/cleaner.jpg' %}&quot;,
+                                                                    &quot;{% static 'img/hero/bar.jpg' %}&quot;,
+                                                                    &quot;{% static 'img/hero/waiting.jpg' %}&quot;,
+                                                                    &quot;{% static 'img/hero/driver.jpg' %}&quot;,
+                                                                    &quot;{% static 'img/hero/kitchen.jpg' %}&quot;
+                                                                    ]"
+                                                                    style="position: relative; z-index: 0; background: none ">
+
+       
+
+                <div class="container">
+
+                    <div class="row">
+
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+
+                            <h2 class="HelveticaLight f50 lett-space-2">What service can you provide?</h2>
+
+                            <div class="description">
+                                <form method='post' class='text-center'>
+							        {% csrf_token %}
+							        <div class='inline-form-field'>
+							            I am a {{ form.service }}
+							        </div>
+							        <div class='text-center mart45'>
+							          <button class='btn btn-primary btn-lg book-freelancer-btn' style="max-width: 300px"> Become a freelancer</button>
+							        </div>
+							    </form>  
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+        <div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height: 600px; width: 1349px; z-index: -999998; position: absolute;">
+            
+        </div>
+      
+{% endblock %}
+
+
+{% block extrascripts %}
+ <script src="/static/js/jquery-ui.js"></script>
+    <script type='text/javascript'>
+
+        var selectedValue = null;
+
+        $(function() {
+            // Carousel
+            var background_images = $('.top-content').data('background-images');
+            $('.top-content').backstretch(background_images, {duration: 3000, fade: 800, loop: false});
+            $('.top-content').backstretch("pause");
+
+            var selectedValue = $( "#id_service option:selected" ).text();
+            var focusedValue = null;
+
+            /* How it works section toggle */
+
+            $('.how-control').click(function(){
+                $('#how-it-works').slideToggle("slow");
+            });
+
+            $( "#id_service" ).selectmenu();
+
+            /* Push the content down/up on select menu open/close */
+
+            $( "#id_service" ).on( "selectmenuopen", function( event, ui ) {
+                $('.description form div.text-center').css('margin-top','180px');
+            } );
+
+            $( "#id_service" ).on( "selectmenuclose", function( event, ui ) {
+                $('.description form div.text-center').css('margin-top','45px');
+                $('.ui-selectmenu-text').html(selectedValue);
+            } );
+
+         
+
+            /* Change top content background image based on selected staff type */
+
+            $( "#id_service" ).on( "selectmenuchange", function( event, ui ) {
+
+
+                selectedValue = ui.item.label;
+                $('.top-content').backstretch("show", backgroundSlideNum(ui.item.value));
+
+            });
+
+
+            /* Change select menu option on menu item hover */
+
+                
+            $( "#id_service" ).on( "selectmenufocus", function( event, ui ) {
+                    
+                if(focusedValue != ui.item.value){
+                        focusedValue = ui.item.value;
+                        $('.ui-selectmenu-text').html(ui.item.label);
+
+                        $('.top-content').backstretch("show", backgroundSlideNum(ui.item.value));
+                } 
+                    
+                    
+
+           }); 
+           
+
+
+        });
+
+        function backgroundSlideNum(value){
+            switch(value){
+                case 'cleaner': 
+                    return 1;
+                    break;
+                case 'bar':
+                    return 2;
+                    break;
+                case 'waiting':
+                    return 3;
+                    break;
+                case 'driver':
+                    return 4;
+                    break;
+                case 'kitchen':
+                    return 5;
+                    break;
+            }
+        }
+
+
+
+    </script>
+   
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% load paygrade %}
+{# For including on a job request form, to update minimum pay #}
+<script type='text/javascript'>
+  $(function() {
+    var filter_fields = {% paygrade_filter_fields service %};
+    
+    // Bind the ajax callback to each filter field input
+    $.each(filter_fields, function(index, value) {
+      $('[name=' + value + ']').change(get_min_pay_and_update);
+    });
+    
+    function get_min_pay_and_update() {
+      // Gets the correct minimum pay via AJAX,
+      // and updates the pay input
+      params = '';
+      $.each(filter_fields, function(index, field_name) {
+        input = $('[name=' + field_name + ']');
+        if (input[0].type == 'radio') {
+          // Get the value in a slightly different way for radios
+          input_value = $('[name=' + field_name + ']:checked').val();
+        }
+        else {
+          input_value = input.val();
+        }
+        
+        params += field_name + '=' + input_value + '&';
+      });
+      // Trim the last '&'
+      params  = params.substring(0, params.length - 1);
+      console.log('Params:' + params);
+      $.ajax({
+        url: "{% min_pay_ajax_endpoint service %}?" + params,
+      })
+      .done(function(data) {
+        set_min_pay(data.min_client_pay_per_hour);
+      });
+    }
+    
+    function set_min_pay(min_pay) {
+      // Sets the minimum pay input with the new value
+      min_pay_input = $('#id_client_pay_per_hour_0');
+      min_pay_input.attr('min', min_pay);
+      // Increase the pay value, if it's less than the min pay
+      if (min_pay_input.val() < min_pay) {
+        min_pay_input.val(min_pay); 
+      }
+    }
+  });
+  
+</script>

@@ -1,0 +1,108 @@
+{% load icons humanize %}
+{% with is_freelancer=request.user.is_freelancer %}
+ 
+
+    <div class="booking-box">
+        <div class="reference">#{{ object.reference_number }}</div>
+       
+        <p class="f20 black">{{ object.date }}, {{ object.start_time }}</p>
+
+        <div>
+            <table class="table job-request-table black f14">
+                <tr>
+                    <td> Service </td>
+                    <td> <span class='label label-default'>{{ object.service|capfirst }}</span></td>
+                </tr>
+                <tr>
+                    <td> Duration </td>
+                    <td class="blue"> {{ object.duration }} hour{{ object.duration|pluralize }}</td>
+                </tr>
+                {% if not is_freelancer %}
+                <tr>
+                    <td>Number of freelancers</td>
+                    <td class="blue">{{ object.number_of_freelancers }}</td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <td> Location </td>
+                    <td class="blue"> 
+                        
+                            {% include 'job/includes/location.html' %}
+                        
+                    </td>
+                </tr>
+                {% block extra_fields %}{% endblock %}
+
+                {% if is_freelancer %}
+                        <tr>
+                            <th>Pay per hour</th>
+                            <td class="blue">
+                                &pound;{{ object.freelancer_pay_per_hour.amount }}
+                            </td>
+                        </tr>
+                    </table>
+                    
+                </div>
+                <div class="total-box">
+              
+                    <table class="table total-table white f14 mar0">
+                        <tr>
+                            <td> Total </td>
+                            <td>
+                                &pound;{{ object.freelancer_total_pay.amount }}
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+                   
+                {% else %}
+
+                    {% if request.user.is_admin %}
+                            <tr>
+                                <td>Client</td>
+                                <td>
+                                    {{ object.client }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Client pay per hour</td>
+                                <td class="blue">
+                                    &pound;{{ object.client_pay_per_hour.amount }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Freelancer pay per hour</td>
+                                <td class="blue">
+                                    &pound;{{ object.freelancer_pay_per_hour.amount }}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td>Pay per hour</td>
+                                <td class="blue">
+                                    &pound;{{ object.client_pay_per_hour.amount }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        
+                        
+                    </table>
+                    
+                </div>
+
+                <div class="total-box">
+              
+                    <table class="table total-table white f14 mar0">
+                        <tr>
+                            <td> Total </td>
+                            <td>
+                                &pound;{{ object.client_total_cost.amount }}
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            {% endif %}
+    </div>
+{% endwith %}

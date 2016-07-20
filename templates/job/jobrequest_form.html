@@ -1,0 +1,15 @@
+{% extends 'job/job_create_base.html' %}
+{% load crispy_forms_tags django_bootstrap_breadcrumbs %}
+
+{% block content %}
+    {% include 'includes/forms/invalid_form_message.html' %}
+    {% crispy form %}
+{% endblock %}
+
+{% block page_actions %}{% endblock %}
+
+{% block extrascripts %}
+    {{ block.super }}
+    {% include 'includes/forms/datetime_form_js.html' %}
+    {% include 'paygrade/includes/forms/job_request_form_paygrade_js.html' %}
+{% endblock %}

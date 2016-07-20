@@ -1,0 +1,4 @@
+{% load icons feedback %}
+{% if object|client_feedback_needed %}
+    <a class='pull-right btn btn-primary' href='{% url 'client_feedback_create' object.pk %}'>{{ 'feedback'|icon }} Leave feedback</a>
+{% endif %}

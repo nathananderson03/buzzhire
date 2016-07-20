@@ -1,0 +1,28 @@
+{% extends 'freelancer/freelancer_detail.html' %}
+
+<!--
+{% block additional_sections %}
+    <h5>Vehicles</h5>
+    {% with object_list=object.drivervehicletype_set.all %}
+        {% include 'driver/includes/vehicle_list.html' with admin_view=True %}
+    {% endwith %}
+{% endblock %}
+-->
+
+{% block additional_public_fields %}
+    <tr>
+        <th>Phone type</th>
+        <td>
+            {{ object.get_phone_type_display }}
+        </td>
+    </tr>
+{% endblock %}
+
+{% block additional_admin_fields %}
+    <tr>
+        <th>Phone type</th>
+        <td>
+            {{ object.get_phone_type_display }}
+        </td>
+    </tr>
+{% endblock %}

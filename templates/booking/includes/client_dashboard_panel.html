@@ -1,0 +1,43 @@
+{% load icons feedback job service humanize %}
+{% if request.user.is_client %}
+
+    <div class="panel panel-default">
+
+      <!--<div class="panel-heading mobile-menu-toggler" role="tab" id="heading1">
+         <a href="#collapse1" aria-expanded="false" aria-controls="collapse1" data-toggle="collapse" data-parent="#accordion">
+          Bookings
+        </a>
+      </div>-->
+     
+      <div class="panel-heading">Bookings</div>
+     
+      <!--<div id="collapse1" class="list-group collapse" role="tabpanel" aria-labelledby="heading1"> -->
+        <div class="list-group">
+          {% url 'requested_jobs' as link_url %}
+          {% include 'includes/panel_link.html' with icon_name='icon-my-bookings' link_text='My bookings' %}
+          {% url 'notification_list' as link_url %}
+          {% include 'includes/panel_link.html' with icon_name='icon-notification' link_text='Notifications' %}
+          {% url 'client_backlog' as link_url %}
+          {% client_backlog_count as feedback_action_number %}
+          {% include 'includes/panel_link.html' with icon_name='icon-feedback' link_text='Awaiting feedback' action_number=feedback_action_number %}
+          
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <!--<div class="panel-heading mobile-menu-toggler" role="tab" id="heading2">
+         <a href="#collapse2" aria-expanded="false" aria-controls="collapse2" data-toggle="collapse" data-parent="#accordion">
+          Create booking
+        </a>
+      </div>-->
+      <div class="panel-heading">Create booking</div>
+      <!--<div id="collapse2" class="list-group collapse" role="tabpanel" aria-labelledby="heading2">-->
+        <div class="list-group">
+          {% get_services as services %}
+          {% for service in services %}
+              {% url 'job_request_create' service.key as link_url %}
+              {% include 'includes/panel_link.html' with icon_name='icon-'|add:service.key link_text=service.freelancer_name_plural|capfirst %}
+          {% endfor %}
+          
+      </div>
+    </div>
+{% endif %}

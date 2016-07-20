@@ -1,0 +1,52 @@
+{% extends 'page_sidebar.html' %}
+{% load django_bootstrap_breadcrumbs crispy_forms_tags icons %}
+
+{% block home_breadcrumb %}{% endblock %}
+
+{% block inner_breadcrumb %}
+  {% url 'account_dashboard' as dashboard_url %} 
+  {% if request.path == dashboard_url %}
+    {{ block.super }}
+  {% else %}
+    {% breadcrumb 'Dashboard' 'account_dashboard' %}
+    {{ block.super }}
+  {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'account/includes/admin_dashboard_panel.html' %}
+    {% include 'booking/includes/client_dashboard_panel.html' %}
+    {% include 'booking/includes/freelancer_dashboard_panel.html' %}
+    {% include 'account/includes/dashboard_panel.html' %}
+{% endblock %}
+
+{% block page_title_sidebar %}
+   <div class='sidebar-content-header'>
+     {{ block.super }}
+   </div>
+   <div class='pull-right'>
+     {% block page_actions %}{% endblock %}
+   </div>
+   <div style='clear: both;'></div>
+{% endblock %}
+
+<div class="sidebar-content"> 
+  <div class="dashboard-form">
+    {% block content %}
+        {% if form %}
+            {% include 'includes/forms/invalid_form_message.html' %}
+            {% crispy form %}
+        {% endif %}
+    {% endblock %}
+  </div>
+</div>
+
+{% block extrastyles %}
+  {{ block.super }}
+  {% if form %}{{ form.media.css }}{% endif %}
+{% endblock %}
+
+{% block extrascripts %}
+  {{ block.super }}
+  {% if form %}{{ form.media.js }}{% endif %}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'job/jobrequest_detail.html' %}
+{% load humanize icons %}
+
+{% block extra_job_requirements %}
+     <tr>
+        <th>Role</th>
+        <td>
+            <span class='label label-default'>{{ object.get_role_display }}</span>
+        </td>
+    </tr>
+{% endblock %}

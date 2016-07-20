@@ -1,0 +1,40 @@
+{% extends 'page_fullwidth.html' %}
+{% load icons %}
+{% block breadcrumbs_wrapper %}{% endblock %}
+{% block content_row_wrapper %}
+{% block page_title %}{% endblock %}
+    <div class="row mar0 Helvetica f18 privacy-policy-page">
+        <div class="row page-title">
+            <h3>{% block page_title_inner %}{{ title }}{% endblock %}</h3>            
+        </div>
+        <div class= "col-md-10 col-md-offset-1 pad0 padb40">
+                <h4 class="blue HelveticaLight f26"> What is BuzzHire?</h4>
+                <p>BuzzHire is an on-demand recruitment platform for businesses to fulfil their immediate hourly staffing needs. Whether it’s due to staff illness, a surge in customer demand or just a crazy evening – sometimes your business needs extra staff for a few hours – we get it, and that’s why we’re here. We provide you with screened, experienced and qualified candidates who are available to work within four hours notice. BuzzHire takes the stress out of recruiting, so you can focus more time on your business.</p>
+                
+                <h4 class="blue HelveticaLight f26"> How does it work?</h4>
+                <p>You simply enter your job details online, outlining what type of worker you require (delivery drivers, waiters, bartenders, kitchen staff, or cleaners) and when you need them. BuzzHire will match our pre-screened candidate to your job post, and send you details of the best candidate. Once you accept, we will authorise payment and arrange for the selected candidate to come to you, ready to work. Payment will only be taken once the job is completed. </p>
+
+                <h4 class="blue HelveticaLight f26"> Who can I hire through BuzzHire?</h4>
+                <p>BuzzHire currently focuses on freelance requirements for bartenders, delivery drivers, kitchen porters, waiters and cleaners.</p>
+
+                
+                <h4 class="blue HelveticaLight f26"> How much does BuzzHire cost?</h4>
+                <p>Posting jobs or joining BuzzHire is absolutely FREE. BuzzHire only charges a transaction fee for completed jobs which is automatically processed at the time of payment.</p>
+                
+                <h4 class="blue HelveticaLight f26"> Where is BuzzHire available?</h4>
+                <p>At present BuzzHire is only present in London, but we will keep you posted as we expand into new locations.</p>
+           
+                <h4 class="blue HelveticaLight f26"> How do I sign up?</h4>
+                <p>We would love for you to be part of the BuzzHire network. Please navigate to the links below to sign up to BuzzHire:</p>
+                <p><a class='btn btn-default' href='{% url 'service_select' %}'>For Companies</a>&nbsp;<a class='btn btn-default' href='{% url 'freelancer_signup_select' %}'>For Freelancers</a></p>
+
+                <h4 class="blue HelveticaLight f26"> How is BuzzHire different to other freelance websites? </h4>
+                <p>BuzzHire is a business-to-business service focusing only on the hospitality and delivery industries for urgent job requirements (within the next few weeks). Each worker is fully vetted, trained and selected by us based on your needs. Our focus is to provide small to large businesses with high quality, experienced staff for temporary work. Unlike others, we don’t focus on the consumer-to-consumer market or virtual working arrangements.</p>
+            
+                <h4 class="blue HelveticaLight f26"> I would like some more information, who can I contact?</h4>
+                <p>We’d love to you hear from you. Please <a href='{% url 'contact' %}'>get in touch</a> and we’ll get back to you as soon as possible.</p>
+           
+        </div>
+    </div>
+
+{% endblock %}

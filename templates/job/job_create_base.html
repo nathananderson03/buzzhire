@@ -1,0 +1,17 @@
+{% extends 'page_sidebar_right.html' %}
+{% load core_tags %}
+
+{% block sidebar %}
+    <h4 class="sidebar-right-page-title">Booking Summary</h4>
+    <div class="sidebar-right-page-right-content">
+    {% if service %}
+        <p>Booking for <strong>{{ service.freelancer_name_plural }}</strong>.</p>
+    {% endif %}
+    {% if object %}
+        <p>{{ object.date }}</p>
+        <p>{{ object.start_time }} - {{ object.duration }} hours</p>
+        <p>&pound;{{ object.client_pay_per_hour.amount }} per hour</p>
+        <h6>Total <span class='pull-right'>&pound;{{ object.client_total_cost.amount }}</span></h6>
+    </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,1 @@
+{% load main_tags %}JOB STARTING in 10 Minutes: Location: {{ job_request.postcode }}. Client Name: {{ job_request.client }}.  If you haven't arrived for your job yet, please contact BuzzHire at {% contact_phone %}

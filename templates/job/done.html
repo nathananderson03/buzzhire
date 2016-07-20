@@ -1,0 +1,18 @@
+{% extends 'job/jobrequest_detail.html' %}
+{% load django_bootstrap_breadcrumbs humanize core_tags %}
+
+{% block page_actions %}{% endblock %}
+
+{% block inner_breadcrumb %}
+  {{ block.super }}
+  {% breadcrumb object object.get_absolute_url %}
+{% endblock %}
+
+{% block content %}
+    <div class='row'>
+        <div class='col-md-6'>
+            <p class="blue HelveticaLight">You will receive details of your assigned freelancer{{ object.number_of_freelancers|pluralize }} shortly.</p> 
+            {% summary object %}    
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'account/dashboard_base.html' %}
+
+{% load icons humanize %}
+{% block content %}
+    {% if object_list %}
+        <table class='table table-striped notification-table'>
+            <tbody>
+                {% for object in object_list %}
+                    <tr>
+                        <td>{{ 'icon-notification-panel'|icon }}</td>
+                        <td><a href='{{ object.related_object.get_absolute_url }}'>{{ object.message }}</a></td>
+                        <td class='text-right notification-date'>{{ object.datetime_created|naturalday }} <span style="color: #999999">at</span> {{ object.datetime_created|time }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class='well'>
+            You have no notifications yet.
+        </div>
+    {% endif %}
+    {% include 'includes/paginator.html' %}
+{% endblock %}

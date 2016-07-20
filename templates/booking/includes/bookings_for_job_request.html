@@ -1,0 +1,107 @@
+{% load humanize icons freelancer feedback job %}
+
+{% if request.user.is_admin %}
+    <h5>Bookings</h5>
+    {% if object.bookings.all %}
+        <table class='table middle-align'>
+            <thead>
+                <th>Freelancer</th>
+                <th>Booking reference</th>
+                <th>Date created</th>
+                <th></th>
+            </thead>
+            {% for booking in object.bookings.all %}
+               <tr>
+                  <td>
+                    <a href='{{ booking.freelancer.get_absolute_url }}'>
+                        {% profile_photo booking.freelancer 'small' %}
+                        {{ booking.freelancer.get_full_name }}
+                    </a>
+                  </td>
+                  <td class='monospace'>{{ booking }}</td>
+                  <td>{{ booking.date_created }}</td>
+                  <td class='text-right'><a class='btn btn-sm btn-default' href='{% url 'admin:booking_booking_change' booking.pk %}'>{{ 'edit'|icon }} edit</a>
+               </tr>
+            {% endfor %}
+        </table>
+        
+    {% else %}
+        <p>No bookings yet.</p>
+    {% endif %}
+    <h5>Invitations</h5>
+    {% if object.invitations.all %}
+        <table class='table middle-align'>
+            <thead>
+                <th>Freelancer</th>
+                <th>Date invited</th>
+                <th>Date applied</th>
+                <th></th>
+                <th></th>
+            </thead>
+            {% for invitation in object.invitations.all %}
+               <tr>
+                  <td>
+                    <a href='{{ invitation.freelancer.get_absolute_url }}'>
+                        {% profile_photo invitation.freelancer 'small' %}
+                        {{ invitation.freelancer.get_full_name }}
+                    </a>
+                  </td>
+                  <td>{{ invitation.date_created }}</td>
+                  {% if invitation.date_applied %}
+                    <td>{{ invitation.date_applied }}</td>
+                  {% else %}
+                    <td>Not applied</td>
+                  {% endif %}
+                    
+                  {% if invitation.is_accepted %}
+                    <td>{{ 'yes'|icon }} Accepted</td>
+                  {% elif invitation.date_declined %}
+                    <td>{{ 'no'|icon }} Declined</td>
+                  {% elif invitation.can_be_accepted %}
+                    <td>
+                      <a class='btn btn-sm btn-success' href='{% url 'booking_create' invitation.jobrequest.pk invitation.freelancer.pk %}'>{{ 'yes'|icon }} Accept</a>
+                      <a class='btn btn-sm btn-danger' href='{% url 'invitation_decline' invitation.pk %}'>{{ 'no'|icon }} Decline</a>
+                    </td>
+                  {% else %}
+                    <td></td>
+                  {% endif %} 
+                  <td class='text-right'><a class='btn btn-sm btn-default' href='{% url 'admin:booking_invitation_change' invitation.pk %}'>{{ 'edit'|icon }} edit</a></td>
+               </tr>
+            {% endfor %}
+        </table>
+        
+    {% else %}
+        <p>No one has been invited yet.</p>
+    {% endif %}
+
+{% elif request.user.is_client %}
+    {% with object.bookings.published as bookings %} 
+        {% if bookings %}
+            <div class="panel panel-default driver-list">
+              <div class="panel-heading">
+                <div class='row'>
+                    <div class='col-md-6'>
+                        {% with service=object|job_request_service %}
+                            <h3 class="panel-title">{{ service.key|icon }} Your freelancer{{ bookings|pluralize }}</h3>
+                        {% endwith %}
+                    </div>
+                    <div class='col-md-6'>
+                        {% include 'feedback/includes/feedback_button.html' %}
+                    </div>
+                </div>
+                
+                
+              </div>
+              <div class="list-group">
+                {% for booking in bookings %}
+                    {% with freelancer=booking.freelancer %}
+                        <a href="{{ freelancer.get_absolute_url }}" class="list-group-item">
+                            {% booking_feedback_summary booking %}
+                        </a>
+                     {% endwith %}
+                {% endfor %}
+              </div>
+            </div>
+        {% endif %}
+    {% endwith %}
+{% endif %}

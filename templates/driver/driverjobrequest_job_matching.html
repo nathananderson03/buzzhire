@@ -1,0 +1,19 @@
+{% extends 'job/jobrequest_job_matching.html' %}
+{% load crispy_forms_tags %}
+
+{% block column_three_fields %}
+    {{ form.vehicle_type|as_crispy_field }}
+    {{ form.own_vehicle|as_crispy_field }}
+    {{ form.minimum_delivery_box|as_crispy_field }}
+    {{ form.phone_requirement|as_crispy_field }}
+{% endblock %}
+
+{% block additional_headings %}
+    <th>Can drive</th>
+    <th>Can provide</th>
+{% endblock %}
+
+{% block additional_cells %}
+    <td>{% for vehicle_type in object.vehicle_types.all %}<p class='compact'><span class='label label-default'>{{ vehicle_type }}</span></p>{% endfor %}</td>
+    <td>{% for driver_vehicle_type in object.drivervehicletype_set.owned %}<p class='compact'><span class='label label-primary'>{{ driver_vehicle_type }}</span></p>{% endfor %}</td>
+{% endblock %}

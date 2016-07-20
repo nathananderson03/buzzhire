@@ -1,0 +1,8 @@
+{% extends 'booking/email/includes/admin_enough_applications.html' %}
+{% load core_tags admin_urls %}
+
+{% block top_message %}
+<p>The following job request just received an application from {{ freelancer }}.</p>
+{% endblock %}
+
+

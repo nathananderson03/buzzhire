@@ -1,0 +1,10 @@
+{% extends 'job/includes/jobrequest_summary.html' %}
+
+{% block extra_fields %}
+    <tr>
+        <th>Vehicle type</th>
+        <td>
+            <span class='label label-default'>{{ object.get_vehicle_type_display }}</span>
+        </td>
+    </tr>
+{% endblock %}

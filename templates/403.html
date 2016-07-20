@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load icons %}
+
+{% block page_title %}
+  {% with title='Permission denied!' %}
+     {{ block.super }}
+  {% endwith %}
+{% endblock %}
+
+{% block content %}
+    <div class='text-center'>
+        <h4>Sorry, you're not allowed to do that.</h4>
+        {% if request.user.is_anonymous %}
+            <p class='top-space'>
+                <a href='{% url 'account_login' %}' class='btn btn-lg btn-primary'>
+                     Log in
+                </a>
+                <a class='btn btn-lg btn-default' href='/'> Return to home</a>
+            </p>
+        {% else %}
+            <p>You are logged in as <strong>{{ request.user }}</strong>.</p>
+            <p class='top-space'>
+                <a href='{% url 'account_logout' %}' class='btn btn-lg btn-default'> Log out</a>
+                <a class='btn btn-lg btn-primary' href='/'> Return to home</a>
+            </p>
+        {% endif %}
+    </div>
+{% endblock %}

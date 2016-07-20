@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    {% crispy form %}
+{% endblock %}
+
+{% block extrastyles %}
+  {{ block.super }}
+  {{ form.media.css }}
+{% endblock %}
+
+{% block extrascripts %}
+  {{ block.super }}
+  {{ form.media.js }}
+{% endblock %}

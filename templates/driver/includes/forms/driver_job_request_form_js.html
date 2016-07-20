@@ -1,0 +1,35 @@
+<script type='text/javascript'>
+    $(function() {
+        // Handle display of minimum delivery box field
+        
+        // Set the selectors based on the form prefix passed (the anon page
+        // has multiple forms within the same html form).
+        {% if form.prefix %}
+            var prefix = '{{ form.prefix }}-';
+        {% else %}
+            var prefix = '';
+        {% endif %}
+
+        var delivery_box_wrapper = $('#div_id_' + prefix + 'minimum_delivery_box');
+        var vehicle_type_radio_selector = 'input[name="' + prefix + 'vehicle_type"]'; 
+        var own_vehicle_checkbox = $('input#id_' + prefix + 'own_vehicle');          
+        var vehicle_type_radios = $(vehicle_type_radio_selector);
+
+        function update_delivery_box_field() {
+            // If the vehicle type involves a delivery box, and the driver must
+            // supply their own vehicle, show the minimum delivery box field
+            if (own_vehicle_checkbox.is(':checked') && $(vehicle_type_radio_selector + ':checked').data('delivery-box-applicable')) {
+                delivery_box_wrapper.show('fast');        
+            }
+            else {
+                delivery_box_wrapper.hide('fast');
+            }
+        }
+        
+        // Bind the delivery box field to changes to the two relevant fields
+        vehicle_type_radios.change(update_delivery_box_field);
+        own_vehicle_checkbox.change(update_delivery_box_field);
+        // Show/hide the delivery box field based on initial values
+        update_delivery_box_field();
+    });
+</script>

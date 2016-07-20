@@ -1,0 +1,60 @@
+{% load humanize core_tags job %}
+
+{% with service=object|job_request_service %}
+    <table class="twelve columns">
+      <tr>
+        <td class="panel" style='padding: 10px;'>
+
+          <p><strong>Reference:</strong> {{ object.reference_number }}</p>
+
+        {% if object.client.company_name %}
+        <h5> Company </h5>
+        <p> {{ object.client.company_name }} </p>
+        {% else %}
+        <h5> Client </h5>
+        <p> {{ object.client.first_name }} {{ object.client.last_name}} </p>
+        {% endif %}
+
+        <h5>Date and time</h5>
+        <p></p>
+        <p><strong>Date:</strong> {{ object.date }}</p>
+        {% block extra_time_details %}{% endblock %}
+        <p><strong>Start time:</strong> {{ object.start_time }}</p>
+        <p><strong>Duration:</strong> {{ object.duration }} hour{{ object.duration|pluralize }}</p>
+
+        <h5>Location</h5>
+        <p></p>
+        <p>{% include 'job/includes/location.html' %}</p>
+
+        {% block extra_job_info %}{% endblock %}
+
+        <h5>{{ service.freelancer_name|capfirst }} details</h5>
+        <p></p>
+        <p><strong>Number of {{ service.freelancer_name_plural }}:</strong> {{ object.number_of_freelancers }} </p>
+        <p><strong>Minimum years of experience:</strong> {{ object.get_years_experience_display }} </p>
+        {% block extra_freelancer_info %}{% endblock %}
+
+        <h5>Budget</h5>
+        <p></p>
+        {% block budget_details %}{% endblock %}
+        <p><strong>Inclusive of tips:</strong> {{ object.tips_included|yesno|capfirst }} </p>
+
+        {% if object.comments %}
+        <h5>Comments</h5>
+        <p></p>
+        <p>{{ object.comments|linebreaks }} </p>
+        {% endif %}
+
+        <table class="button" style='margin-top: 10px; margin-bottom: 10px;'>
+            <tr>
+              <td>
+                <a href='{% base_url %}{{ object.get_absolute_url }}'>View job request</a>
+              </td>
+            </tr>
+        </table>
+    
+        </td>
+        <td class="expander"></td>
+      </tr>
+    </table>
+{% endwith %}

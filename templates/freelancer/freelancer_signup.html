@@ -1,0 +1,23 @@
+{% extends 'account/signup.html' %}
+{% load django_bootstrap_breadcrumbs crispy_forms_tags %}
+
+{% block form_content %}
+<div class="col-md-6 become-freelancer-form">
+    {% block form_message %} 
+        <p>Tell us about yourself.</p>
+    {% endblock %}
+    {% if extra_forms.0.errors or extra_forms.1.errors or form.errors %}
+        {% include 'includes/forms/invalid_form_message.html' with force_show=True %}
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {% crispy form %}
+        
+       
+        {% crispy extra_forms.0 %}
+        {% crispy extra_forms.1 %}
+    </form>
+</div>
+<div class="clearfix"></div>
+    
+{% endblock %}

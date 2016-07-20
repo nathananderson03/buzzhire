@@ -1,0 +1,11 @@
+{% load icons crispy_forms_tags %}
+<form method='post' class='text-center' action='{% url 'service_select' %}'>
+    {% csrf_token %}
+    <div class='inline-form-field'>I need {% if not form.use_plural %}a {% endif %}{{ form.service }}</div>
+    <div class='text-center mart45'>
+      <button class='btn btn-primary btn-lg book-freelancer-btn'> Book a freelancer</button>
+      {% if include_how_it_works %}
+        <a class="btn how-control"> How it works</a>
+      {% endif %}    
+    </div>
+</form>    

@@ -1,0 +1,558 @@
+{% extends 'page_fullwidth.html' %}
+{% load staticthumbnail static icons %}
+{% block content %}
+
+ <div id="how-it-works" class="features-container" style="display: none">
+
+            <div class="container">
+
+                <a class="x-icon how-control">&times;</a>
+
+                <div class="row page-title">
+
+                    <div class="col-md-12">
+
+                        <h3>How it works</h3>
+
+                    </div>
+
+                    
+
+               </div>
+
+                <div class="row  Helvetica white">
+
+                    <div class="col-sm-4  features-box">
+
+                        <div class="icon">
+
+                            <div class="icon-num">
+
+                            1
+
+                            </div>
+
+                        </div>
+
+                        <h4>Post a job online</h4>
+
+                        <p>Select the date and time you'd like your freelancer to show up.</p>
+
+                    </div>
+
+                    <div class="col-sm-4 features-box">
+
+                        <div class="icon">
+
+                            <div class="icon-num">
+
+                            2
+
+                            </div>
+
+                        </div>
+
+                        <h4>Get confirmation</h4>
+
+                        <p>We'll confirm your freelancer and take care of payment electronically and securely.</p>
+
+                    </div>
+
+                    <div class="col-sm-4 features-box">
+
+                        <div class="icon">
+
+                           <div class="icon-num">
+
+                            3
+
+                            </div>
+
+                        </div>
+
+                        <h4>Await your freelancer</h4>
+
+                        <p>An experienced fully-equipped freelancer will arrive at your premises, ready to work.</p>
+
+                    </div>
+
+                </div>
+
+                
+
+                    <div class="row">
+
+                        <div class="col-md-4 col-md-offset-4 text-center">
+
+                            <a class="btn btn-lg btn-block btn-default" href="{% url 'service_select' %}"> Book a freelancer</a>
+
+                        </div>
+
+                    </div>
+
+                
+
+                
+
+            </div>
+
+        </div>
+        <div id="home" class="top-content" data-background-images="[&quot;{% static 'img/hero/bar.jpg' %}&quot;,
+                                                                    &quot;{% static 'img/hero/cleaner.jpg' %}&quot;,
+                                                                    &quot;{% static 'img/hero/bar.jpg' %}&quot;,
+                                                                    &quot;{% static 'img/hero/waiting.jpg' %}&quot;,
+                                                                    &quot;{% static 'img/hero/driver.jpg' %}&quot;,
+                                                                    &quot;{% static 'img/hero/kitchen.jpg' %}&quot;
+                                                                    ]"
+                                                                    style="position: relative; z-index: 0; background: none ">
+
+                <!--<div class="dimmer-overlay"></div>-->
+
+                <div class="container">
+
+                    <div class="row">
+
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+
+                            <h2 class="HelveticaLight f50 lett-space-2">Recruitment, on demand.</h2>
+
+                            <div class="description">
+                                {% include 'job/includes/service_select_form.html' with include_how_it_works=True %}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+        <div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height: 600px; width: 1349px; z-index: -999998; position: absolute;">
+            
+        <!--<img src="{% static 'img/hero/kitchen.jpg' %}" style="position: absolute; margin: 0px; padding: 0px; border: none; width: 1645.71428571429px; height: 600px; max-height: none; max-width: none; z-index: -999999; left: -148.357142857143px; top: 0px;"> -->
+        </div>
+
+       
+
+    </div>
+
+       <div class="product-container product-bg2 HelveticaLight">
+
+            <div class="container">
+
+                <div style="margin-bottom: 1.5em;" class="row text-center">
+
+                    <h3>Why BuzzHire?</h3>
+
+                </div>
+
+                <div class="row buttons-row text-center">
+
+                    
+
+                    
+
+                    <ul class="nav-tabs page-section uppercase" role="tablist">
+
+                            <li role="presentation" class="active">
+
+                                <a href="#cat1" aria-controls="cat1" role="tab" data-toggle="tab" class="btn homepage-navtab">Employers</a>
+
+                            </li>
+
+                            <li role="presentation">
+
+                                <a href="#cat2" aria-controls="cat2" role="tab" data-toggle="tab" class="btn homepage-navtab">Freelancers</a>
+
+                            </li>
+
+                    </ul>
+
+                </div>
+
+                
+
+                <div class="row tab-content">
+
+                    <div role="tabpanel" class="tab-pane in active" id="cat1">
+
+                        <div class="col-sm-4 prominent-box">
+
+                            <div class="icon">
+
+                                <img src="{% static 'img/icons/icon1.png' %}" />
+
+                            </div>
+
+                            <h4>Professional</h4>
+
+                            <p class="Helvetica gray">
+
+                                BuzzHire professionals are experienced, friendly, background-checked, and insured.
+
+                            </p>
+
+                        </div>
+
+                        <div class="col-sm-4 prominent-box">
+
+                           <div class="icon">
+
+                                <img src="{% static 'img/icons/icon2.png' %}" />
+
+                            </div>
+
+                            <h4>Available</h4>
+
+                            <p class="Helvetica gray">
+
+                                Book online in 60 seconds and schedule your freelancer for as early as a few hours later.
+
+                            </p>
+
+                        </div>
+
+                        <div class="col-sm-4 prominent-box">
+
+                           <div class="icon">
+
+                                <img src="{% static 'img/icons/icon3.png' %}" />
+
+                            </div>
+
+                            <h4 class="blue">Guaranteed</h4>
+
+                            <p class="Helvetica gray">
+
+                                If you're not satisfied with our work, we'll refund your money. It's as simple as that.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane in" id="cat2">
+
+                        <div class="col-sm-4 prominent-box">
+
+                            <div class="icon">
+
+                                <img src="{% static 'img/icons/freelancer-icon1.png' %}" />
+
+                            </div>
+
+                            <h4>Great pay</h4>
+
+                            <p class="Helvetica gray">
+
+                                Our top freelancers  make more than &pound;900 a week. Get well-rated and earn more. Pay varies depending on your role.
+
+                            </p>
+
+                        </div>
+
+                        <div class="col-sm-4 prominent-box">
+
+                           <div class="icon">
+
+                                <img src="{% static 'img/icons/freelancer-icon2.png' %}" />
+
+                            </div>
+
+                            <h4>Flexible schedule</h4>
+
+                            <p class="Helvetica gray">
+
+                                You choose when you want to work and how much. Build a full schedule or simply claim a few jobs on the side. 
+
+                            </p>
+
+                        </div>
+
+                        <div class="col-sm-4 prominent-box">
+
+                           <div class="icon">
+
+                                <img src="{% static 'img/icons/freelancer-icon3.png' %}" />
+
+                            </div>
+
+                            <h4 class="blue">Easy payments</h4>
+
+                            <p class="Helvetica gray">
+
+                                No more waiting weeks to be paid. BuzzHire will deposit your earnings into your bank account within 5 days of completing your job.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                
+
+                    
+
+                
+
+            </div>
+
+        </div>
+       
+
+        <div class="testimonials">
+                <div class="testimonials-inner container">
+                    <h3>What our customers say</h3>
+                    <div class="row">
+
+                        <div class="col-sm-4 reviews">
+
+                            <div class="review reviews-panel box-arrow-down">
+
+                                <p class="Helvetica gray">
+                                    <!--Very useful! I often need delivery drivers on the weekend and it was so easy to use your website. The driver arrived on time and obviously had a lot of delivery experience.  I’ll be using you all the time from now on.-->
+                                    We had a great experience yesterday with BuzzHire. The guy you sent us over was really personable and very efficient - we really liked him. 
+                                </p>
+
+                                <span class="blue HelveticaOblique"> 
+                                    <!-- - Roberto @ Dolce Vita Restaurant -->
+                                    - Jo @ Fresh Flavours
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-4 reviews">
+
+                            <div class="review reviews-panel box-arrow-down">
+
+                                <p class="Helvetica gray">
+
+                                   I like the idea! Had a good experience and I am more than happy to use it again.
+
+                                </p>
+
+                                <span class="blue HelveticaOblique"> - Leo @ Big Mouth BBQ </span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-4 reviews">
+
+                            <div class="review reviews-panel box-arrow-down">
+
+                                <p class="Helvetica gray">
+
+                                   Merci! Booked 2 waiters and both were great. Very good with the clients and worked well with the rest of the team. I’ll be recommending you to everyone.
+
+                                </p>
+
+                                <span class="blue HelveticaOblique"> - Pierre @ La Tour de Bronze </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                        
+
+                    <div class="row text-center">
+
+                            <div class="col-sm-3 bottom-space">
+
+                                <p><img src="{% static 'img/press/guardian.png' %}" alt="The Guardian"></p>
+
+                            </div>
+
+                            <div class="col-sm-3">
+
+                                <p><img src="{% static 'img/press/eveningstandard.png' %}" alt="London Evening Standard"></p>
+
+                            </div>
+
+                            <div class="col-sm-3">
+
+                                <p><img src="{% static 'img/press/telegraph.png' %}" alt="The Telegraph"></p>
+
+                            </div>
+
+                            <div class="col-sm-3">
+
+                                <p><img src="{% static 'img/press/metro.png' %}" alt="London Metro"></p>
+
+                            </div>
+
+
+
+                        </div>
+
+                </div>
+
+                    
+
+        </div>
+
+
+
+
+
+        <div style="padding-top: 6em;" class="product-container product-bg1">
+
+            <div class="container">
+
+                <div class="row text-center">
+
+                    <div class="col-md-4 col-md-offset-2">
+
+                        <img src="{% static 'img/download.png' %}" class="img-responsive" style="margin:0 auto"/>
+
+                    </div>
+
+                    <div class="col-md-4 pad0">
+
+                        <div class=" mart40">
+
+                            <img src="{% static 'img/download-store.png' %}" />
+
+                        </div>
+
+                        <div class="pad20 mart40">
+
+                            {#<a href="#" class="def-a white HelveticaLight f30"> Download Now</a>#}
+                            <span class="def-a white HelveticaLight f30"> Coming soon...</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="ready-sec">
+
+            <div class="container">
+
+                <div class="row" style="margin-bottom: 2em;">
+
+                    <div class="col-md-4 col-md-offset-4 text-center">
+
+                        <h4 class="HelveticaLight f30 blue mar0 pad0">Ready to book now?</h4>
+
+                        <a class="btn btn-lg btn-primary Helvetica" href="{% url 'service_select' %}"> Book a freelancer</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+{% endblock %}
+
+
+{% block extrascripts %}
+ <script src="/static/js/jquery-ui.js"></script>
+    <script type='text/javascript'>
+
+        var selectedValue = null;
+
+        $(function() {
+            // Carousel
+            var background_images = $('.top-content').data('background-images');
+            $('.top-content').backstretch(background_images, {duration: 3000, fade: 800, loop: false});
+            $('.top-content').backstretch("pause");
+
+            var selectedValue = $( "#id_service option:selected" ).text();
+            var focusedValue = null;
+
+            /* How it works section toggle */
+
+            $('.how-control').click(function(){
+                $('#how-it-works').slideToggle("slow");
+            });
+
+            $( "#id_service" ).selectmenu();
+
+            /* Push the content down/up on select menu open/close */
+
+            $( "#id_service" ).on( "selectmenuopen", function( event, ui ) {
+                $('.description form div.text-center').css('margin-top','180px');
+            } );
+
+            $( "#id_service" ).on( "selectmenuclose", function( event, ui ) {
+                $('.description form div.text-center').css('margin-top','45px');
+                $('.ui-selectmenu-text').html(selectedValue);
+            } );
+
+         
+
+            /* Change top content background image based on selected staff type */
+
+            $( "#id_service" ).on( "selectmenuchange", function( event, ui ) {
+
+                selectedValue = ui.item.label;
+                $('.top-content').backstretch("show", backgroundSlideNum(ui.item.value));
+               
+
+
+            });
+
+
+            /* Change select menu option on menu item hover */
+
+                
+            $( "#id_service" ).on( "selectmenufocus", function( event, ui ) {
+                    
+                if(focusedValue != ui.item.value){
+                        focusedValue = ui.item.value;
+                        $('.ui-selectmenu-text').html(ui.item.label);
+
+                        $('.top-content').backstretch("show", backgroundSlideNum(ui.item.value));
+                } 
+                    
+                    
+
+           }); 
+           
+
+
+        });
+
+        function backgroundSlideNum(value){
+            switch(value){
+                case 'cleaner': 
+                    return 1;
+                    break;
+                case 'bar':
+                    return 2;
+                    break;
+                case 'waiting':
+                    return 3;
+                    break;
+                case 'driver':
+                    return 4;
+                    break;
+                case 'kitchen':
+                    return 5;
+                    break;
+            }
+        }
+
+
+
+
+    </script>
+   
+
+{% endblock %}
+
+           

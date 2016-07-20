@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+  {% with title='Page not found' %}
+     {{ block.super }}
+  {% endwith %}
+{% endblock %}
+
+{% block content %}
+    <div class='text-center'>
+        <h3>Sorry, we couldn't find that page.</h3>
+        <p class='top-space'><a class='btn btn-lg btn-primary' href='/'> Return to home</a></p>
+    </div>
+{% endblock %}

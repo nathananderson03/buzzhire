@@ -1,0 +1,72 @@
+{% extends 'account/dashboard_base.html' %}
+{% load icons %}
+
+{% block content %}
+    <p class="Helvetica f16 gray-light marb15">Please select your availability so that we can match you with jobs that
+    fit your schedule. If you are marked as "Not available" for a particular
+    time slot you will not be booked in for a job during that time.</p>
+    <form method="post">
+        {% csrf_token %}
+        {% with form.get_field_table as field_table %}
+            <div class="table-responsive">
+                <table class='table table-striped availability-table'>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            {% for heading in field_table.headings %}
+                                <th>{{ heading }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in field_table.rows %}
+                            <tr>
+                                <th>{{ row.heading }}</th>
+                                {% for field in row.fields %}
+                                    <td class="availability-select" style="display: none">{{ field }}</td>
+                                    <td class="availability-select-icon">
+                                        <i class="fa fa-check-circle fa-lg 
+                                        {% if field.value  %} blue {% else %} gray-lighter {% endif %}"</i>
+                                      
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endwith %}
+        <div class="button-wrap text-center">
+            <div style="display: inline-block;">
+            {% include 'includes/forms/buttons.html' with submit_name='save' icon_name='' submit_text='Save' %} 
+             </div>
+            <button name="edit" class="btn btn-lg btn-primary form-toggle-button" onclick="toggleAvailabilityFields()" type="button" value="hidden" style="display: inline-block;"> Edit </button>
+        </div>
+    </form>
+
+
+{% endblock %}
+
+{% block extrascripts %}
+    <script type="text/javascript">
+
+    
+     function toggleAvailabilityFields(){
+
+            $(".availability-select").toggle();
+            $(".availability-select-icon").toggle();
+            
+            var toggleButton = $(".form-toggle-button");
+            if(toggleButton.val() == "visible"){
+
+                toggleButton.val('hidden');
+                toggleButton.text('Edit');
+            } else {
+                toggleButton.val('visible');
+                toggleButton.text('Cancel');
+            }
+            return false;
+     }
+    </script>
+    {% endblock %}
+

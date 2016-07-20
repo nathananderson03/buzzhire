@@ -1,0 +1,16 @@
+{% extends 'page_sidebar_right.html' %}
+{% load icons %}
+
+{% block content %}
+<div class="col-md-5">
+    {% block already_have_account %}
+    <p>
+    	Already have an account? 
+    	<a class='btn btn-lg btn-primary' href="{% url 'account_login' %}" style="width: 270px; margin: 20px 0">Log in</a>
+    </p>
+    {% include 'account/login.html' %}
+    {% endblock %}
+</div>
+    {% block form_content %}{{ block.super }}{% endblock %}
+
+{% endblock %}
